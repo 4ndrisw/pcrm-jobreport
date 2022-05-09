@@ -1,0 +1,6 @@
+
+.jobreport-update{ background-color:#ddd; }
+
+body .jobreport-preview .jobreport-items table tbody td.description span{
+    color: #d1d3ea;
+}
