@@ -538,7 +538,7 @@ class Jobreports_model extends App_Model
             'status' => $action,
             'signed' => ($action == 4) ? 1 : 0,
         ]);
-        log_activity('action '. $action);
+
         $notifiedUsers = [];
 
         if ($this->db->affected_rows() > 0) {
@@ -605,7 +605,6 @@ class Jobreports_model extends App_Model
                         // Send staff email notification that customer declined jobreport
                         // (To fix merge field) send_mail_template('jobreport_declined_to_staff', 'jobreports',$jobreport, $member['email'], $contact_id);
                     }
-                    log_activity('status jobreport_customer_declined');
                     pusher_trigger_notification($notifiedUsers);
                     $this->log_jobreport_activity($id, 'jobreport_activity_client_declined', true);
                     hooks()->do_action('jobreport_declined', $jobreport);
@@ -803,7 +802,7 @@ class Jobreports_model extends App_Model
 
             $this->db->where('rel_id', $id);
             $this->db->where('rel_type', 'jobreport');
-            $this->db->delete('jobreport_emails');
+            $this->db->delete('scheduled_emails');
 
             // Get related tasks
             $this->db->where('rel_type', 'jobreport');
@@ -1224,7 +1223,7 @@ class Jobreports_model extends App_Model
         $diff2 = date('Y-m-d', strtotime('+' . $days . ' days'));
 
         if ($staffId && ! staff_can('view', 'jobreports', $staffId)) {
-            $this->db->where('addedfrom', $staffId);
+            $this->db->where(db_prefix() . 'jobreports.addedfrom', $staffId);
         }
 
         $this->db->select(db_prefix() . 'jobreports.id,' . db_prefix() . 'jobreports.number,' . db_prefix() . 'clients.userid,' . db_prefix() . 'clients.company,' . db_prefix() . 'projects.name,' . db_prefix() . 'jobreports.date');
