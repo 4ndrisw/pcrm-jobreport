@@ -22,8 +22,7 @@ $lang['default_jobreports_pipeline_sort']                          = 'Delete';
 $lang['settings_group_jobreports']                          = 'Job Reports';
 $lang['require_client_logged_in_to_view_jobreport']                          = 'Klien harus login untuk melihat BAPP';
 $lang['jobreports']                          = 'BAPP';
-$lang['jobreport_view_activity_tooltip']           = 'Activity Log';
-
+$lang['jobreport_view_activity_tooltip']           = 'Log aktifitas';
          
 $lang['jobreport_status_draft']           = 'Draft';
 $lang['jobreport_status_sent']            = 'Terkirim';
@@ -88,8 +87,8 @@ $lang['jobreport_sent_to_client_fail']             = 'Ditemukanmasalah saat peng
 $lang['jobreport_view']                            = 'Lihat jobreport';
 $lang['jobreport_status_changed_success'] = 'Status BAPP berubah';
 
-$lang['jobreport_status_changed_fail']    = 'Failed to change jobreport status';
-$lang['jobreport_accept_identity_confirmation']    = 'Enable jobreport accept identity confirmation';
+$lang['jobreport_status_changed_fail']    = 'Gagal mengubah status BAPP';
+$lang['jobreport_accept_identity_confirmation']    = 'Dibolehkan Konfirmasi identitas saat penerimaan BAPP';
 
 $lang['jobreport_signed_by']                            = 'BAPP Ditandatangani oleh ';
 $lang['jobreport_signed_date']                            = 'BAPP Ditandatangani tanggal ';
@@ -98,7 +97,7 @@ $lang['jobreport_signed_ip']                            = 'BAPP Ditandatangani d
 $lang['clients_nav_jobreports']                  = 'Job reports';
 $lang['clients_decline_jobreport']               = 'Tolak';
 $lang['clients_accept_jobreport']                = 'Terima';
-$lang['clients_my_jobreports']                   = 'Job reports';
+$lang['clients_my_jobreports']                   = 'BAPP';
 
 
 $lang['jobreport_this_week']                = 'BAPP Minggu ini';
