@@ -185,8 +185,6 @@
             </div>
 
 
-
-
             <?php if(!empty($jobreport->clientnote)){ ?>
             <div class="col-md-12 jobreport-html-note">
             <hr />

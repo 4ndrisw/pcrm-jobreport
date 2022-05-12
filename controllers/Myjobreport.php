@@ -90,12 +90,6 @@ class Myjobreport extends ClientsController
             $pdf->Output($filename, 'D');
             die();
         }
-        $this->load->library('app_number_to_word', [
-            'clientid' => $jobreport->clientid,
-        ], 'numberword');
-
-        $this->app_scripts->theme('sticky-js', 'assets/plugins/sticky/sticky.js');
-
 
         $data['title'] = $jobreport_number;
         $this->disableNavigation();
@@ -107,6 +101,8 @@ class Myjobreport extends ClientsController
         $data['jobreport']                     = hooks()->apply_filters('jobreport_html_pdf_data', $jobreport);
         $data['bodyclass']                     = 'viewjobreport';
         $data['client_company']                = $this->clients_model->get($jobreport->clientid)->company;
+        $setSize = get_option('jobreport_qrcode_size');
+        $data['setSize'] = isset($setSize) ? $setSize : 160;
 
         $data['identity_confirmation_enabled'] = $identity_confirmation_enabled;
         if ($identity_confirmation_enabled == '1') {
@@ -127,7 +123,7 @@ class Myjobreport extends ClientsController
 
         $params['data'] = $qrcode_data;
         $params['writer'] = 'png';
-        $params['setSize'] = 160;
+        $params['setSize'] = isset($setSize) ? $setSize : 160;
         $params['encoding'] = 'UTF-8';
         $params['setMargin'] = 0;
         $params['setForegroundColor'] = ['r'=>0,'g'=>0,'b'=>0];
@@ -148,7 +144,7 @@ class Myjobreport extends ClientsController
         $this->endroid_qrcode->generate($params);
 
         $this->data($data);
-        //$this->view('jobreporthtml');
+        $this->app_scripts->theme('sticky-js', 'assets/plugins/sticky/sticky.js');
         $this->view('themes/'. active_clients_theme() .'/views/jobreports/jobreporthtml');
         add_views_tracking('jobreport', $id);
         hooks()->do_action('jobreport_html_viewed', $id);

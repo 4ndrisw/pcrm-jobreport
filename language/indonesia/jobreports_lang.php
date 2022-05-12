@@ -111,6 +111,8 @@ $lang['jobreport_list_date']                = 'Tanggal';
 $lang['new_jobreport']                = 'Buat BAPP';
 $lang['jobreport_assigned_string']                = 'Direktur';
 $lang['clients_html_btn_download']                = 'Unduh';
+$lang['jobreport_qrcode_size']                = 'Ukuran qrcode BAPP';
+$lang['default_jobreport_assigned_string']                = 'Default penugasan BAPP';
 
 
 

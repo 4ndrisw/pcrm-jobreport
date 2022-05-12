@@ -113,6 +113,8 @@ $lang['jobreport_list_client']                = 'Customer';
 $lang['jobreport_list_date']                = 'Date';
 $lang['new_jobreport']                = 'New jobreport';
 $lang['clients_html_btn_download']                = 'Download';
+$lang['jobreport_qrcode_size']                = 'Jobreport qrcode size';
+$lang['default_jobreport_assigned_string']                = 'Default jobreport assigned';
 
 
 
