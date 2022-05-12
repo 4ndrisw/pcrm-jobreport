@@ -13,7 +13,7 @@
    <div class="top" data-sticky data-sticky-class="preview-sticky-header">
       <div class="container preview-sticky-container">
          <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10">
                <div class="pull-left">
                   <h3 class="bold no-mtop jobreport-html-number no-mbot">
                      <span class="sticky-visible hide">
@@ -40,7 +40,6 @@
                       echo '<button type="button" id="accept_action" class="btn btn-success mright5 mtop7 pull-right action-button accept"><i class="fa fa-check"></i> '._l('clients_accept_jobreport').'</button>';
                     }
                   } else if($jobreport->status == 3){
-                    if (($jobreport->expirydate >= date('Y-m-d') || !$jobreport->expirydate) && $jobreport->status != 5) {
                       $can_be_accepted = true;
                       if($identity_confirmation_enabled == '0'){
                         echo form_open($this->uri->uri_string(),array('class'=>'pull-right mtop7 action-button'));
@@ -50,7 +49,6 @@
                       } else {
                         echo '<button type="button" id="accept_action" class="btn btn-success mright5 mtop7 pull-right action-button accept"><i class="fa fa-check"></i> '._l('clients_accept_jobreport').'</button>';
                       }
-                    }
                   }
                   // Is not accepted, declined and expired
                   if ($jobreport->status != 4 && $jobreport->status != 3 && $jobreport->status != 5) {
@@ -60,14 +58,14 @@
                     echo form_close();
                   }
                   ?>
-               <?php echo form_open(admin_url('jobreports/pdf/'.$jobreport->id), array('class'=>'pull-right action-button')); ?>
+               <?php echo form_open(site_url('jobreports/pdf/'.$jobreport->id), array('class'=>'pull-right action-button')); ?>
                <button type="submit" name="jobreportpdf" class="btn btn-default action-button download mright5 mtop7" value="jobreportpdf">
                <i class="fa fa-file-pdf-o"></i>
-               <?php echo _l('clients_invoice_html_btn_download'); ?>
+               <?php echo _l('clients_html_btn_download'); ?>
                </button>
                <?php echo form_close(); ?>
                <?php if(is_client_logged_in() && has_contact_permission('jobreports')){ ?>
-               <a href="<?php echo site_url('clients/jobreports/'); ?>" class="btn btn-default pull-right mright5 mtop7 action-button go-to-portal">
+               <a href="<?php echo site_url('jobreports/list'); ?>" class="btn btn-default pull-right mright5 mtop7 action-button go-to-portal">
                <?php echo _l('client_go_to_dashboard'); ?>
                </a>
                <?php } ?>
@@ -115,12 +113,6 @@
                   </span>
                   <?php echo _d($jobreport->date); ?>
                </p>
-               <?php if(!empty($jobreport->expirydate)){ ?>
-               <p class="no-mbot jobreport-html-expiry-date">
-                  <span class="bold"><?php echo _l('jobreport_data_expiry_date'); ?></span>:
-                  <?php echo _d($jobreport->expirydate); ?>
-               </p>
-               <?php } ?>
                <?php if(!empty($jobreport->reference_no)){ ?>
                <p class="no-mbot jobreport-html-reference-no">
                   <span class="bold"><?php echo _l('reference_no'); ?>:</span>

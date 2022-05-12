@@ -14,6 +14,7 @@ if (!$CI->db->table_exists(db_prefix() . 'jobreports')) {
       `number` int(11) NOT NULL DEFAULT 0,
       `prefix` varchar(50) DEFAULT NULL,
       `number_format` int(11) NOT NULL DEFAULT 0,
+      `formatted_number` varchar(20) DEFAULT NULL,
       `hash` varchar(32) DEFAULT NULL,
       `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
       `date` date DEFAULT NULL,
@@ -149,8 +150,7 @@ add_option('jobreport_number_decrement_on_delete', 0);
 add_option('jobreport_number_format', 4);
 add_option('jobreport_year', date('Y'));
 add_option('exclude_jobreport_from_client_area_with_draft_status', 1);
-add_option('predefined_clientnote_jobreport', '- Staf diatas untuk melakukan riksa uji pada peralatan tersebut.<br />
-- Staf diatas untuk membuat dokumentasi riksa uji sesuai kebutuhan.');
+add_option('predefined_clientnote_jobreport', '');
 add_option('predefined_terms_jobreport', '- Dokumen ini diterbitkan melalui Aplikasi CRM, tidak memerlukan tanda tangan basah dari PT. Cipta Mas Jaya.');
 add_option('jobreport_due_after', 1);
 add_option('allow_staff_view_jobreports_assigned', 1);

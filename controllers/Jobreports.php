@@ -153,7 +153,7 @@ class Jobreports extends AdminController
     }
 
     /* update jobreport */
-    public function update($id='')
+    public function update($id)
     {
         if ($this->input->post()) {
             $jobreport_data = $this->input->post();
@@ -167,6 +167,21 @@ class Jobreports extends AdminController
             if (!has_permission('jobreports', '', 'edit')) {
                 access_denied('jobreports');
             }
+
+            $next_schedule_number = get_option('next_jobreport_number');
+            $format = get_option('jobreport_number_format');
+            $_prefix = get_option('jobreport_prefix');
+            
+            $number_settings = $this->get_number_settings($id);
+
+            $prefix = isset($number_settings->prefix) ? $number_settings->prefix : $_prefix;
+            
+            $number  = isset($jobreport_data['number']) ? $jobreport_data['number'] : $next_jobreport_number;
+
+            $date = date('Y-m-d');
+            
+            $jobreport_data['formatted_number'] = jobreport_number_format($number, $format, $prefix, $date);
+
             $success = $this->jobreports_model->update($jobreport_data, $id);
             if ($success) {
                 set_alert('success', _l('updated_successfully', _l('jobreport')));
@@ -205,6 +220,13 @@ class Jobreports extends AdminController
         $this->load->view('admin/jobreports/jobreport_update', $data);
     }
 
+    public function get_number_settings($id){
+        $this->db->select('prefix');
+        $this->db->where('id', $id);
+        return $this->db->get(db_prefix() . 'schedules')->row();
+
+    }
+    
     public function update_number_settings($id)
     {
         $response = [
@@ -371,10 +393,10 @@ class Jobreports extends AdminController
     {
         $canView = user_can_view_jobreport($id);
         if (!$canView) {
-            access_denied('Schedules');
+            access_denied('Jobreports');
         } else {
             if (!has_permission('jobreports', '', 'view') && !has_permission('jobreports', '', 'view_own') && $canView == false) {
-                access_denied('Schedules');
+                access_denied('Jobreports');
             }
         }
         if (!$id) {

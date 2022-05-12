@@ -69,7 +69,7 @@ $pdf->writeHTML($tblhtml, true, false, false, false, '');
 $pdf->SetFont($font_name, '', $font_size);
 
 $assigned_path = <<<EOF
-        <img width="150" height="150" src="$jobreport->assigned_path">
+        <img src="$jobreport->assigned_path">
     EOF;    
 $assigned_info = '<div style="text-align:center;">';
     $assigned_info .= get_option('invoice_company_name') . '<br />';

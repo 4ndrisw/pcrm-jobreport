@@ -54,7 +54,7 @@ function jobreports_staff_member_deleted($data)
 function jobreports_global_search_result_output($output, $data)
 {
     if ($data['type'] == 'jobreports') {
-        $output = '<a href="' . admin_url('jobreports/jobreport/' . $data['result']['id']) . '">' . format_jobreport_number($data['result']['number']) . '</a>';
+        $output = '<a href="' . admin_url('jobreports/jobreport/' . $data['result']['id']) . '">' . format_jobreport_number($data['result']['id']) . '</a>';
     }
 
     return $output;
@@ -64,11 +64,26 @@ function jobreports_global_search_result_query($result, $q, $limit)
 {
     $CI = &get_instance();
     if (has_permission('jobreports', '', 'view')) {
+
         // jobreports
-        $CI->db->select()->from(db_prefix() . 'jobreports')->like(db_prefix() . 'projects.name', $q)->or_like(db_prefix() . 'clients.company', $q)->limit($limit);
-        $CI->db->join(db_prefix() . 'projects',db_prefix() . 'jobreports.project_id='.db_prefix() .'projects.id', 'left');
+        $CI->db->select()
+           ->from(db_prefix() . 'jobreports')
+           ->like(db_prefix() . 'jobreports.formatted_number', $q)->limit($limit);
+        
+        $result[] = [
+                'result'         => $CI->db->get()->result_array(),
+                'type'           => 'jobreports',
+                'search_heading' => _l('jobreports'),
+            ];
+        
+        if(isset($result[0]['result'][0]['id'])){
+            return $result;
+        }
+
+        // jobreports
+        $CI->db->select()->from(db_prefix() . 'jobreports')->like(db_prefix() . 'clients.company', $q)->or_like(db_prefix() . 'jobreports.formatted_number', $q)->limit($limit);
         $CI->db->join(db_prefix() . 'clients',db_prefix() . 'jobreports.clientid='.db_prefix() .'clients.userid', 'left');
-        $CI->db->order_by(db_prefix() . 'projects.name', 'ASC');
+        $CI->db->order_by(db_prefix() . 'clients.company', 'ASC');
 
         $result[] = [
                 'result'         => $CI->db->get()->result_array(),
@@ -193,7 +208,12 @@ function jobreports_settings_tab()
         'position' => 51,
     ]);
 }
-add_option('show_assigned_on_jobreports', 1);
 
 $CI = &get_instance();
 $CI->load->helper(JOBREPORTS_MODULE_NAME . '/jobreports');
+
+if(($CI->uri->segment(0)=='admin' && $CI->uri->segment(1)=='jobreports') || $CI->uri->segment(1)=='jobreports'){
+    $CI->app_css->add(JOBREPORTS_MODULE_NAME.'-css', base_url('modules/'.JOBREPORTS_MODULE_NAME.'/assets/css/'.JOBREPORTS_MODULE_NAME.'.css'));
+    $CI->app_scripts->add(JOBREPORTS_MODULE_NAME.'-js', base_url('modules/'.JOBREPORTS_MODULE_NAME.'/assets/js/'.JOBREPORTS_MODULE_NAME.'.js'));
+}
+

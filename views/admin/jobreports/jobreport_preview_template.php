@@ -250,16 +250,7 @@
                   <div class="row">
                      <div class="container-fluid">
                         <div class="col-md-6">
-                           <?php if(!empty($jobreport_members)){ ?>
-                              <strong><?= _l('jobreport_members_name') ?></strong>
-                              <ul class="jobreport_members">
-                              <?php 
-                                 foreach($jobreport_members as $member){
-                                   echo ('<li style="list-style:auto" class="member">' . $member['firstname'] .' '. $member['lastname'] .'</li>');
-                                  }
-                              ?>
-                              </ul>
-                           <?php } ?>
+                           
                         </div>
                         <div class="col-md-6 text-right">
                            <p class="no-mbot">

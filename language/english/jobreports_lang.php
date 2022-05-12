@@ -103,12 +103,18 @@ $lang['clients_decline_jobreport']               = 'Decline';
 $lang['clients_accept_jobreport']                = 'Accept';
 $lang['clients_my_jobreports']                   = 'Job reports';
 
-
+$lang['jobreport_this_week']                = 'Jobreports this week';
 $lang['jobreport_date']                = 'Jobreport date';
 $lang['jobreport_datesend']                = 'Jobreport sent date';
 $lang['jobreport_assigned_string']                = 'Submitted by';
 $lang['jobreport_url']                = 'long_url';
 $lang['jobreport_send_to_customer_already_sent']                = 'Jobreport already sent to customer_';
+$lang['jobreport_list_client']                = 'Customer';
+$lang['jobreport_list_date']                = 'Date';
+$lang['new_jobreport']                = 'New jobreport';
+$lang['clients_html_btn_download']                = 'Download';
+
+
 
 /*
 

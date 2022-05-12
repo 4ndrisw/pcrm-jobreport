@@ -12,7 +12,7 @@
     <tbody>
         <?php foreach($jobreports as $jobreport){ ?>
             <tr>
-                <td><?php echo '<a href="' . admin_url("jobreports/jobreport/" . $jobreport["id"]) . '">' . format_jobreport_number($jobreport["id"]) . '</a>'; ?></td>
+                <td><?php echo '<a href="' . site_url("jobreports/show/" . $jobreport["id"] . '/' . $jobreport["hash"]) . '">' . format_jobreport_number($jobreport["id"]) . '</a>'; ?></td>
                 <td><?php echo $jobreport['name']; ?></td>
                 <td><?php echo _d($jobreport['date']); ?></td>
                 <td><?php echo format_jobreport_status($jobreport['status']); ?></td>

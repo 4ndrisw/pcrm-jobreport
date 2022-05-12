@@ -655,6 +655,32 @@ function handle_removed_jobreport_item_post($id, $rel_type)
     return false;
 }
 
+
+/**
+ * Injects theme CSS
+ * @return null
+ */
+function jobreport_head_component()
+{
+}
+
+$CI = &get_instance();
+// Check if jobreport is excecuted
+if ($CI->uri->segment(1)=='jobreports') {
+    hooks()->add_action('app_customers_head', 'jobreport_app_client_includes');
+}
+
+/**
+ * Theme clients footer includes
+ * @return stylesheet
+ */
+function jobreport_app_client_includes()
+{
+    echo '<link href="' . base_url('modules/' .JOBREPORTS_MODULE_NAME. '/assets/css/jobreports.css') . '"  rel="stylesheet" type="text/css" >';
+    echo '<script src="' . module_dir_url('' .JOBREPORTS_MODULE_NAME. '', 'assets/js/jobreports.js') . '"></script>';
+}
+
+
 function after_jobreport_updated($id){
 
 

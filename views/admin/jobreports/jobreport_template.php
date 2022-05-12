@@ -215,7 +215,7 @@
                   </div>
                   <div class="col-md-6">
                          <?php
-                        $selected = '';
+                        $selected = get_option('default_jobreport_assigned');
                         foreach($staff as $member){
                          if(isset($jobreport)){
                            if($jobreport->assigned == $member['staffid']) {
@@ -223,7 +223,7 @@
                            }
                          }
                         }
-                        echo render_select('assigned',$staff,array('staffid',array('firstname','lastname')),'assigned_string',$selected);
+                        echo render_select('assigned',$staff,array('staffid',array('firstname','lastname')),'jobreport_assigned_string',$selected);
                         ?>
                   </div>
                </div>

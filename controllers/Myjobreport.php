@@ -155,4 +155,6 @@ class Myjobreport extends ClientsController
         no_index_customers_area();
         $this->layout();
     }
+
+
 }
