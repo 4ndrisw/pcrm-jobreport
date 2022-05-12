@@ -113,7 +113,7 @@ $lang['jobreport_assigned_string']                = 'Direktur';
 $lang['clients_html_btn_download']                = 'Unduh';
 $lang['jobreport_qrcode_size']                = 'Ukuran qrcode BAPP';
 $lang['default_jobreport_assigned_string']                = 'Default penugasan BAPP';
-
+$lang['jobreport_send_to_customer_already_sent']                = 'Jobreport already sent to customer_';
 
 
 /*

@@ -624,7 +624,7 @@ class Jobreports_model extends App_Model
                             $notified = add_notification([
                                 'fromcompany'     => true,
                                 'touserid'        => $member['staffid'],
-                                'description'     => 'jobreport_send_to_customer_already_sent_2',
+                                'description'     => 'jobreport_send_to_customer_already_sent',
                                 'link'            => 'jobreports/jobreport/' . $id,
                                 'additional_data' => serialize([
                                     format_jobreport_number($jobreport->id),
