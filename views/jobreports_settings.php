@@ -10,9 +10,8 @@
       <i class="fa fa-question-circle pull-left" data-toggle="tooltip" data-title="<?php echo _l('next_jobreport_number_tooltip'); ?>"></i>
       <?php echo render_input('settings[next_jobreport_number]','next_jobreport_number',get_option('next_jobreport_number'), 'number', ['min'=>1]); ?>
       <hr />
-
       <i class="fa fa-question-circle pull-left" data-toggle="tooltip" data-title="<?php echo _l('due_after_help'); ?>"></i>
-      <?php echo render_input('settings[jobreport_qrcode_size]','jobreport_qrcode_size',get_option('jobreport_qrcode_size')); ?>
+      <?php echo render_input('settings[jobreport_qrcode_size]', 'jobreport_qrcode_size', get_option('jobreport_qrcode_size')); ?>
       <hr />
       <?php render_yes_no_option('delete_only_on_last_jobreport','delete_only_on_last_jobreport'); ?>
       <hr />
