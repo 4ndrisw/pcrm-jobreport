@@ -102,8 +102,6 @@ class Myjobreport extends ClientsController
         $data['bodyclass']                     = 'viewjobreport';
         $data['client_company']                = $this->clients_model->get($jobreport->clientid)->company;
         $setSize = get_option('jobreport_qrcode_size');
-        $data['setSize'] = isset($setSize) ? $setSize : 160;
-
         $data['identity_confirmation_enabled'] = $identity_confirmation_enabled;
         if ($identity_confirmation_enabled == '1') {
             $data['bodyclass'] .= ' identity-confirmation';
@@ -115,7 +113,6 @@ class Myjobreport extends ClientsController
         $qrcode_data .= _l('jobreport_datesend') . ' : ' . $jobreport->datesend ."\r\n";
         $qrcode_data .= _l('jobreport_assigned_string') . ' : ' . get_staff_full_name($jobreport->assigned) ."\r\n";
         $qrcode_data .= _l('jobreport_url') . ' : ' . site_url('jobreports/show/'. $jobreport->id .'/'.$jobreport->hash) ."\r\n";
-
 
         $jobreport_path = get_upload_path_by_type('jobreports') . $jobreport->id . '/';
         _maybe_create_upload_path('uploads/jobreports');
