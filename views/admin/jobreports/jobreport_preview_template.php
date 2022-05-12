@@ -88,8 +88,8 @@
                   <div class="btn-group">
                      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-pdf-o"></i><?php if(is_mobile()){echo ' PDF';} ?> <span class="caret"></span></a>
                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="hidden-xs"><a href="<?php echo admin_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>"><?php echo _l('view_pdf'); ?></a></li>
-                        <li class="hidden-xs"><a href="<?php echo admin_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_in_new_window'); ?></a></li>
+                        <li class="hidden-xs"><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>"><?php echo _l('view_pdf'); ?></a></li>
+                        <li class="hidden-xs"><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_in_new_window'); ?></a></li>
                         <li><a href="<?php echo admin_url('jobreports/pdf/'.$jobreport->id); ?>"><?php echo _l('download'); ?></a></li>
                         <li>
                            <a href="<?php echo admin_url('jobreports/pdf/'.$jobreport->id.'?print=true'); ?>" target="_blank">

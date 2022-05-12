@@ -375,6 +375,25 @@ function user_can_view_jobreport($id, $staff_id = false)
         return true;
     }
 
+    if(is_client_logged_in()){
+
+        $CI = &get_instance();
+        $CI->load->model('jobreports_model');
+       
+        $jobreport = $CI->jobreports_model->get($id);
+        if (!$jobreport) {
+            show_404();
+        }
+        // Do one more check
+        if (get_option('view_jobreport_only_logged_in') == 1) {
+            if ($jobreport->clientid != get_client_user_id()) {
+                show_404();
+            }
+        }
+    
+        return true;
+    }
+
     $CI->db->select('id, addedfrom, assigned');
     $CI->db->from(db_prefix() . 'jobreports');
     $CI->db->where('id', $id);

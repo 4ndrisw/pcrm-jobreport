@@ -9,5 +9,5 @@ $route['jobreports/jobreport/(:num)/(:any)'] = 'jobreport/index/$1/$2';
  */
 $route['jobreports/list'] = 'myjobreport/list';
 $route['jobreports/show/(:num)/(:any)'] = 'myjobreport/show/$1/$2';
-//$route['jobreports/pdf/(:num)'] = 'myjobreport/pdf/$1';
+$route['jobreports/pdf/(:num)'] = 'myjobreport/pdf/$1';
 

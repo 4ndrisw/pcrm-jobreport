@@ -12,6 +12,13 @@ class Myjobreport extends ClientsController
     /* Get all jobreports in case user go on index page */
     public function list($id = '')
     {
+        if (!is_client_logged_in() && !is_staff_logged_in()) {
+            if (get_option('view_jobreport_only_logged_in') == 1) {
+                redirect_after_login_to_current_url();
+                redirect(site_url('authentication/login'));
+            }
+        }
+
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('jobreports', 'admin/tables/table'));
         }
@@ -39,35 +46,6 @@ class Myjobreport extends ClientsController
 
         $identity_confirmation_enabled = get_option('jobreport_accept_identity_confirmation');
 
-        if ($this->input->post('jobreport_action')) {
-            $action = $this->input->post('jobreport_action');
-
-            // Only decline and accept allowed
-            if ($action == 4 || $action == 3) {
-                $success = $this->jobreports_model->mark_action_status($action, $id, true);
-
-                $redURL   = $this->uri->uri_string();
-                $accepted = false;
-
-                if (is_array($success)) {
-                    if ($action == 4) {
-                        $accepted = true;
-                        set_alert('success', _l('clients_jobreport_accepted_not_invoiced'));
-                    } else {
-                        set_alert('success', _l('clients_jobreport_declined'));
-                    }
-                } else {
-                    set_alert('warning', _l('clients_jobreport_failed_action'));
-                }
-                if ($action == 4 && $accepted = true) {
-                    process_digital_signature_image($this->input->post('signature', false), JOBREPORT_ATTACHMENTS_FOLDER . $id);
-
-                    $this->db->where('id', $id);
-                    $this->db->update(db_prefix() . 'jobreports', get_acceptance_info_array());
-                }
-            }
-            redirect($redURL);
-        }
         // Handle Jobreport PDF generator
 
         $jobreport_number = format_jobreport_number($jobreport->id);
@@ -149,5 +127,58 @@ class Myjobreport extends ClientsController
         $this->layout();
     }
 
+
+    /* Generates jobreport PDF and senting to email  */
+    public function pdf($id)
+    {
+        $canView = user_can_view_jobreport($id);
+        if (!$canView) {
+            access_denied('Jobreports');
+        } else {
+            if (!has_permission('jobreports', '', 'view') && !has_permission('jobreports', '', 'view_own') && $canView == false) {
+                access_denied('Jobreports');
+            }
+        }
+        if (!$id) {
+            redirect(admin_url('jobreports'));
+        }
+        $jobreport        = $this->jobreports_model->get($id);
+        $jobreport_number = format_jobreport_number($jobreport->id);
+        
+        $jobreport->assigned_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id.'/assigned-'.$jobreport_number.'.png';
+        $jobreport->acceptance_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id.'/signature.png';
+        $jobreport->client_company = $this->clients_model->get($jobreport->clientid)->company;
+        $jobreport->acceptance_date_string = _dt($jobreport->acceptance_date);
+
+
+        try {
+            $pdf = jobreport_pdf($jobreport);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            echo $message;
+            if (strpos($message, 'Unable to get the size of the image') !== false) {
+                show_pdf_unable_to_get_image_size_error();
+            }
+            die;
+        }
+
+        $type = 'D';
+
+        if ($this->input->get('output_type')) {
+            $type = $this->input->get('output_type');
+        }
+
+        if ($this->input->get('print')) {
+            $type = 'I';
+        }
+
+        $fileNameHookData = hooks()->apply_filters('jobreport_file_name_admin_area', [
+                            'file_name' => mb_strtoupper(slug_it($jobreport_number)) . '.pdf',
+                            'jobreport'  => $jobreport,
+                        ]);
+
+        $pdf->Output($fileNameHookData['file_name'], $type);
+    }
+    
 
 }
