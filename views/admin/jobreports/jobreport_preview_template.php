@@ -81,18 +81,18 @@
                   <div class="mtop10"></div>
                </div>
                <div class="pull-right _buttons">
-                  <?php if((staff_can('edit', 'jobreports') && $jobreport->status != 4) || is_admin()){ ?>                     
+                  <?php if((staff_can('edit', 'jobreports') && $jobreport->status != 4) || is_admin()){ ?>
                      <a href="<?php echo admin_url('jobreports/update/'.$jobreport->id); ?>" class="btn btn-default btn-with-tooltip" data-toggle="tooltip" title="<?php echo _l('edit_jobreport_tooltip'); ?>" data-placement="bottom"><i class="fa fa-pencil-square-o"></i></a>
-                  
+
                   <?php } ?>
                   <div class="btn-group">
                      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-pdf-o"></i><?php if(is_mobile()){echo ' PDF';} ?> <span class="caret"></span></a>
                      <ul class="dropdown-menu dropdown-menu-right">
                         <li class="hidden-xs"><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>"><?php echo _l('view_pdf'); ?></a></li>
                         <li class="hidden-xs"><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_in_new_window'); ?></a></li>
-                        <li><a href="<?php echo admin_url('jobreports/pdf/'.$jobreport->id); ?>"><?php echo _l('download'); ?></a></li>
+                        <li><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id); ?>"><?php echo _l('download'); ?></a></li>
                         <li>
-                           <a href="<?php echo admin_url('jobreports/pdf/'.$jobreport->id.'?print=true'); ?>" target="_blank">
+                           <a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?print=true'); ?>" target="_blank">
                            <?php echo _l('print'); ?>
                            </a>
                         </li>
@@ -250,7 +250,7 @@
                   <div class="row">
                      <div class="container-fluid">
                         <div class="col-md-6">
-                           
+
                         </div>
                         <div class="col-md-6 text-right">
                            <p class="no-mbot">
@@ -326,7 +326,7 @@
                         <div class="bold"><?php echo _l('jobreport_staff_string'); ?>:</div>
                         <?php echo get_staff_full_name($jobreport->assigned); ?>
                      </div>
-                     <?php } ?>                     
+                     <?php } ?>
                      <?php if($jobreport->clientnote != ''){ ?>
                      <div class="col-md-12 mtop15">
                         <p class="bold text-muted"><?php echo _l('jobreport_order'); ?></p>
@@ -391,7 +391,7 @@
                                  $additional_data = '';
                                  if(!empty($activity['additional_data'])){
                                   $additional_data = unserialize($activity['additional_data']);
-                                  
+
                                   $i = 0;
                                   foreach($additional_data as $data){
                                     if(strpos($data,'<original_status>') !== false){
