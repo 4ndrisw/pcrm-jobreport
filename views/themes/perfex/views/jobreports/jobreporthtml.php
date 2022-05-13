@@ -13,7 +13,7 @@
    <div class="top" data-sticky data-sticky-class="preview-sticky-header">
       <div class="container preview-sticky-container">
          <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
                <div class="pull-left">
                   <h3 class="bold no-mtop jobreport-html-number no-mbot">
                      <span class="sticky-visible hide">
