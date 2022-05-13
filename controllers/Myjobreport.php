@@ -144,9 +144,9 @@ class Myjobreport extends ClientsController
         }
         $jobreport        = $this->jobreports_model->get($id);
         $jobreport_number = format_jobreport_number($jobreport->id);
-        
+
         $jobreport->assigned_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id.'/assigned-'.$jobreport_number.'.png';
-        $jobreport->acceptance_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id.'/signature.png';
+        $jobreport->acceptance_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id .'/'.$jobreport->signature;
         $jobreport->client_company = $this->clients_model->get($jobreport->clientid)->company;
         $jobreport->acceptance_date_string = _dt($jobreport->acceptance_date);
 
@@ -179,6 +179,6 @@ class Myjobreport extends ClientsController
 
         $pdf->Output($fileNameHookData['file_name'], $type);
     }
-    
+
 
 }
