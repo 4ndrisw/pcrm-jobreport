@@ -115,7 +115,12 @@ $lang['new_jobreport']                = 'New jobreport';
 $lang['clients_html_btn_download']                = 'Download';
 $lang['jobreport_qrcode_size']                = 'Jobreport qrcode size';
 $lang['default_jobreport_assigned_string']                = 'Default jobreport assigned';
-
+$lang['jobreport_terms_and_conditions']		='Terms and conditions';
+$lang['jobreport_today']				= 'Today,';
+$lang['jobreport_date_text']				= 'Date';
+$lang['jobreport_declare']                = 'hereby declare that :';
+$lang['jobreport_result']                = 'The work has been completed with the following results:';
+$lang['jobreport_closing']                ='This Minutes of Work Completion is made to be used properly, thank you for your attention and cooperation.';
 
 
 /*

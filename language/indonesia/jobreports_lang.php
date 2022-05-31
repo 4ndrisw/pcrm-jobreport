@@ -113,7 +113,13 @@ $lang['clients_html_btn_download']                = 'Unduh';
 $lang['jobreport_qrcode_size']                = 'Ukuran qrcode BAPP';
 $lang['default_jobreport_assigned_string']                = 'Default penugasan BAPP';
 $lang['jobreport_send_to_customer_already_sent']                = 'Jobreport already sent to customer_';
+$lang['jobreport_today']				= 'Pada hari ini,';
+$lang['jobreport_date_text']				= 'Tanggal';
+$lang['jobreport_declare']                = 'dengan ini menyatakan bahwa :';
+$lang['jobreport_result']                = 'Telah selesai dikerjakan dengan baik  dengan hasil sebagai berikut:';
+$lang['jobreport_closing']                ='Berita Acara Penyelesaian Pekerjaan ini dibuat untuk dipergunakan sebagaimana mestinya, atas perhatian dan kerjasamanya kami ucapkan terima kasih.';
 
+$lang['jobreport_terms_and_conditions']		='Syarat dan ketentuan';
 
 /*
 

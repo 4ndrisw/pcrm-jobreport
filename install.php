@@ -161,6 +161,7 @@ add_option('show_project_on_jobreport', 1);
 add_option('jobreports_pipeline_limit', 1);
 add_option('default_jobreports_pipeline_sort', 1);
 add_option('jobreport_accept_identity_confirmation', 1);
+add_option('jobreport_qrcode_size', '160');
 
 
 /*

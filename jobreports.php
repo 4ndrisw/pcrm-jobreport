@@ -30,8 +30,6 @@ hooks()->add_filter('global_search_result_output', 'jobreports_global_search_res
 hooks()->add_filter('get_dashboard_widgets', 'jobreports_add_dashboard_widget');
 hooks()->add_filter('module_jobreports_action_links', 'module_jobreports_action_links');
 
-add_option('jobreport_qrcode_size', '150');
-
 function jobreports_add_dashboard_widget($widgets)
 {
     $widgets[] = [

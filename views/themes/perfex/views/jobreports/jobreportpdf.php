@@ -19,7 +19,7 @@ $info_left_column .= pdf_logo_url();
 // Write top left logo and right column info/text
 pdf_multi_row($info_left_column, $info_right_column, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
 
-$pdf->ln(10);
+$pdf->ln(4);
 
 $organization_info = '<div style="color:#424242;">';
     $organization_info .= format_organization_info();
@@ -35,29 +35,66 @@ $CI = &get_instance();
 $CI->load->model('jobreports_model');
 $jobreport_members = $CI->jobreports_model->get_jobreport_members($jobreport->id,true);
 
-
-$jobreport_info .= '<br />' . _l('jobreport_data_date') . ': ' . _d($jobreport->date) . '<br />';
-
-if (!empty($jobreport->expirydate)) {
-    $jobreport_info .= _l('jobreport_data_expiry_date') . ': ' . _d($jobreport->expirydate) . '<br />';
-}
-
 if (!empty($jobreport->reference_no)) {
     $jobreport_info .= _l('reference_no') . ': ' . $jobreport->reference_no . '<br />';
 }
-
-if ($jobreport->project_id != 0 && get_option('show_project_on_jobreport') == 1) {
-    $jobreport_info .= _l('project') . ': ' . get_project_name_by_id($jobreport->project_id) . '<br />';
-}
-
 
 $left_info  = $swap == '1' ? $jobreport_info : $organization_info;
 $right_info = $swap == '1' ? $organization_info : $jobreport_info;
 
 pdf_multi_row($left_info, $right_info, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
 
-// The Table
-$pdf->Ln(hooks()->apply_filters('pdf_info_and_table_separator', 6));
+$pdf->ln(4);
+$project = get_project($jobreport->project_id);
+
+$list = explode(' ',$project->name);
+$project_name = $list[0];
+$project_date = _d($project->start_date);
+
+$date = $jobreport->date;
+$today = _l('jobreport_today');
+$jobreport_declare = _l('jobreport_declare');
+$getDayName = getDayName($date);
+$getDay = getDay($date);
+$getMonth = getMonth($date);
+$getYear = getYear($date);
+
+$txt = <<<EOD
+$today $getDayName $getDay $getMonth $getYear, $jobreport_declare \r\n
+EOD;
+
+// print a block of text using Write()
+$pdf->write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
+
+$jobreport_date_text = _l('jobreport_date_text');
+$tbl_po = <<<EOD
+<table style="margin-left:10">
+    <tbody>
+        <tr>
+            <td style="width:160">PO/SPK/WO/PH *)</td>
+            <td style="width:20">:</td>
+            <td>$project_name</td>
+        </tr>
+        <tr>
+            <td style="width:160">$jobreport_date_text</td>
+            <td style="width:20">:</td>
+            <td>$project_date</td>
+        </tr>
+    </tbody>    
+</table>
+EOD;
+
+$jobreport_result = _l('jobreport_result');
+$pdf->writeHTML($tbl_po, true, false, false, false, '');
+
+$txt = <<<EOD
+$jobreport_result \r\n
+EOD;
+
+// print a block of text using Write()
+$pdf->write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
+
+$pdf->Ln(hooks()->apply_filters('pdf_info_and_table_separator', 2));
 
 // The items table
 $items = get_jobreport_items_table_data($jobreport, 'jobreport', 'pdf');
@@ -100,6 +137,14 @@ $client_info .= '</div>';
 $left_info  = $swap == '1' ? $client_info : $assigned_info;
 $right_info = $swap == '1' ? $assigned_info : $client_info;
 pdf_multi_row($left_info, $right_info, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
+$jobreport_closing = _l('jobreport_closing');
+$txt = <<<EOD
+$jobreport_closing \r\n
+EOD;
+
+$pdf->ln(4);
+// print a block of text using Write()
+$pdf->Write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
 
 if (!empty($jobreport->clientnote)) {
     $pdf->Ln(4);
@@ -113,7 +158,7 @@ if (!empty($jobreport->clientnote)) {
 if (!empty($jobreport->terms)) {
     $pdf->Ln(4);
     $pdf->SetFont($font_name, 'B', $font_size);
-    $pdf->Cell(0, 0, _l('terms_and_conditions') . ":", 0, 1, 'L', 0, '', 0);
+    $pdf->Cell(0, 0, _l('jobreport_terms_and_conditions') . ":", 0, 1, 'L', 0, '', 0);
     $pdf->SetFont($font_name, '', $font_size);
     $pdf->Ln(2);
     $pdf->writeHTMLCell('', '', '', '', $jobreport->terms, 0, 1, false, true, 'L', true);
