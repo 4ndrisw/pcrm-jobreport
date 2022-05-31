@@ -716,3 +716,45 @@ function jobreport_status_changed_hook($data){
     log_activity('jobreport_status_changed');
 
 }
+
+function getYear($pdate) {
+    $date = DateTime::createFromFormat("Y-m-d", $pdate);
+    return $date->format("Y");
+}
+
+function getMonth($pdate) {
+    $bulan = array(
+                '01' => 'Januari',
+                '02' => 'Februari',
+                '03' => 'Maret',
+                '04' => 'April',
+                '05' => 'Mei',
+                '06' => 'Juni',
+                '07' => 'Juli',
+                '08' => 'Agustus',
+                '09' => 'September',
+                '10' => 'Oktober',
+                '11' => 'November',
+                '12' => 'Desember',
+        );
+    $date = DateTime::createFromFormat("Y-m-d", $pdate);
+    return $bulan[$date->format("m")];
+}
+
+function getDay($pdate) {
+    $date = DateTime::createFromFormat("Y-m-d", $pdate);
+    return $date->format("d");
+}
+
+function getDayName($pdate) {
+$hari = array ( 1 =>    'Senin',
+                'Selasa',
+                'Rabu',
+                'Kamis',
+                'Jumat',
+                'Sabtu',
+                'Minggu'
+            );
+    $date = DateTime::createFromFormat("Y-m-d", $pdate);
+    return $hari[$date->format("N")];
+}
