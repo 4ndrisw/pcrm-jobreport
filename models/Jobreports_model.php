@@ -428,7 +428,6 @@ class Jobreports_model extends App_Model
             'data'             => $data,
             'items'            => $items,
             'newitems'         => $newitems,
-            'jobreport_members' => $jobreport_members,
             'removed_items'    => isset($data['removed_items']) ? $data['removed_items'] : [],
         ], $id);
 
@@ -1226,7 +1225,7 @@ class Jobreports_model extends App_Model
             $this->db->where(db_prefix() . 'jobreports.addedfrom', $staffId);
         }
 
-        $this->db->select(db_prefix() . 'jobreports.id,' . db_prefix() . 'jobreports.number,' . db_prefix() . 'clients.userid,' . db_prefix() . 'clients.company,' . db_prefix() . 'projects.name,' . db_prefix() . 'jobreports.date');
+        $this->db->select(db_prefix() . 'jobreports.id,' . db_prefix() . 'jobreports.number,' . db_prefix() . 'clients.userid,' . db_prefix() . 'clients.company,' . db_prefix() . 'projects.id AS project_id,' . db_prefix() . 'projects.name,' . db_prefix() . 'jobreports.date');
         $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'jobreports.clientid', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'jobreports.project_id', 'left');
         $this->db->where('date IS NOT NULL');

@@ -33,7 +33,8 @@
                                         <?php echo '<a href="' . admin_url("clients/client/" . $jobreport["userid"]) . '">' . $jobreport["company"] . '</a>'; ?>
                                     </td>
                                     <td>
-                                        <?php echo $jobreport['name']; ?>
+                                        <?php echo '<a href="' . admin_url("projects/view/" . $jobreport["project_id"]) . '">' . $jobreport["company"] . '</a>'; ?>
+                                        <?php //echo $jobreport['name']; ?>
                                     </td>
                                     <td>
                                         <?php echo _d($jobreport['date']); ?>
