@@ -135,6 +135,17 @@ function jobreport_mark_as(status_id, jobreport_id) {
     data.status = status_id;
     data.jobreportid = jobreport_id;
     $.post(admin_url + 'jobreports/update_jobreport_status', data).done(function (response) {
-        table_jobreports.DataTable().ajax.reload(null, false);
+        //table_jobreports.DataTable().ajax.reload(null, false);
+        reload_jobreports_tables();
+    });
+}
+
+// Reload all jobreports possible table where the table data needs to be refreshed after an action is performed on task.
+function reload_jobreports_tables() {
+    var av_jobreports_tables = ['.table-jobreports', '.table-rel-jobreports'];
+    $.each(av_jobreports_tables, function (i, selector) {
+        if ($.fn.DataTable.isDataTable(selector)) {
+            $(selector).DataTable().ajax.reload(null, false);
+        }
     });
 }

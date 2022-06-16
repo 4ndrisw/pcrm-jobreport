@@ -137,6 +137,15 @@
             </div>
          </div>
          <div class="row">
+         
+            <?php 
+               $status = format_jobreport_status($jobreport->status,'',true);
+               echo _l('task_mark_as',$status, '. and .'); 
+            ?>
+         </div>
+         
+
+         <div class="row">
             <div class="col-md-12">
                <div class="table-responsive">
                   <?php

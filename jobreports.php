@@ -15,7 +15,7 @@ define('JOBREPORT_ATTACHMENTS_FOLDER', 'uploads/jobreports/');
 hooks()->add_filter('before_jobreport_updated', '_format_data_jobreport_feature');
 hooks()->add_filter('before_jobreport_added', '_format_data_jobreport_feature');
 
-hooks()->add_action('after_cron_run', 'jobreports_notification');
+//hooks()->add_action('after_cron_run', 'jobreports_notification');
 hooks()->add_action('admin_init', 'jobreports_module_init_menu_items');
 hooks()->add_action('admin_init', 'jobreports_permissions');
 hooks()->add_action('clients_init', 'jobreports_clients_area_menu_items');

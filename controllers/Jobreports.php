@@ -11,6 +11,7 @@ class Jobreports extends AdminController
         parent::__construct();
         $this->load->model('jobreports_model');
         $this->load->model('clients_model');
+        $this->load->model('projects_model');
     }
 
     /* Get all jobreports in case user go on index page */
@@ -150,6 +151,92 @@ class Jobreports extends AdminController
         $data['title']             = $title;
 
         $this->load->view('admin/jobreports/jobreport_create', $data);
+    }
+
+    /* Add new jobreport */
+    public function import($client,$project)
+    {
+
+        $data['clientid'] = $this->uri->segment(4);
+        $data['project_id'] = $this->uri->segment(5);
+
+        $project = $this->projects_model->get($data['project_id']);
+        
+        $data['project_data'] = false;
+        $data['task'] = false;
+        
+        if(isset($project->id)){
+            $data['project_data'] = $project;
+            $data['client_data'] = $project->client_data;
+            $task = $this->projects_model->get_tasks($project->id);
+            $data['task_data'] = $task;
+        }
+
+        if ($this->input->post()) {
+
+            $jobreport_data = $this->input->post();
+
+            $save_and_send_later = false;
+            if (isset($jobreport_data['save_and_send_later'])) {
+                unset($jobreport_data['save_and_send_later']);
+                $save_and_send_later = true;
+            }
+
+            if (!has_permission('jobreports', '', 'create')) {
+                access_denied('jobreports');
+            }
+
+            $next_jobreport_number = get_option('next_jobreport_number');
+            $_format = get_option('jobreport_number_format');
+            $_prefix = get_option('jobreport_prefix');
+            
+            $prefix  = isset($jobreport->prefix) ? $jobreport->prefix : $_prefix;
+            $format  = isset($jobreport->number_format) ? $jobreport->number_format : $_format;
+            $number  = isset($jobreport->number) ? $jobreport->number : $next_jobreport_number;
+
+            $date = date('Y-m-d');
+            
+            $jobreport_data['formatted_number'] = jobreport_number_format($number, $format, $prefix, $date);
+
+            $id = $this->jobreports_model->add($jobreport_data);
+
+            if ($id) {
+                set_alert('success', _l('added_successfully', _l('jobreport')));
+
+                $redUrl = admin_url('jobreports/jobreport/' . $id);
+
+                if ($save_and_send_later) {
+                    $this->session->set_userdata('send_later', true);
+                    // die(redirect($redUrl));
+                }
+
+                redirect(
+                    !$this->set_jobreport_pipeline_autoload($id) ? $redUrl : admin_url('jobreports/jobreport/')
+                );
+            }
+        }
+
+
+        $title = _l('create_new_jobreport');
+
+        if ($this->input->get('customer_id')) {
+            $data['customer_id'] = $this->input->get('customer_id');
+        }
+        /*
+        $data['ajaxItems'] = false;
+        if (total_rows(db_prefix() . 'items') <= ajax_on_total_items()) {
+            $data['items'] = $this->items_model->get_grouped();
+        } else {
+            $data['items']     = [];
+            $data['ajaxItems'] = true;
+        }
+        */
+
+        $data['staff']             = $this->staff_model->get('', ['active' => 1]);
+        $data['jobreport_statuses'] = $this->jobreports_model->get_statuses();
+        $data['title']             = $title;
+
+        $this->load->view('admin/jobreports/jobreport_import', $data);
     }
 
     /* update jobreport */

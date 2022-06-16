@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="panel_s">
                     <div class="panel-body">
-                     <?php if(has_permission('jobreports','','create')){ ?> 
+                     <?php if(has_permission('jobreports','','create')){ ?>
 
                      <div class="_buttons">
                         <a href="<?php echo admin_url('jobreports/create'); ?>" class="btn btn-info pull-left display-block"><?php echo _l('new_jobreport'); ?></a>
