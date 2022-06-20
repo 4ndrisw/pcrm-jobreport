@@ -34,7 +34,7 @@
                                         <?php echo $jobreport["company"]; ?>
                                     </td>
                                     <td>
-                                        <?php echo '<a href="' . admin_url("clients/project/view/" . $jobreport["project_id"]) . '">' . $jobreport["name"] . '</a>'; ?>
+                                        <?php echo '<a href="' . admin_url("projects/view/" . $jobreport["project_id"]) . '">' . $jobreport["name"] . '</a>'; ?>
                                     </td>
                                 </tr>
                             <?php } ?>
