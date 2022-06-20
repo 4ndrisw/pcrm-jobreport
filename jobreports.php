@@ -36,6 +36,10 @@ function jobreports_add_dashboard_widget($widgets)
         'path'      => 'jobreports/widgets/jobreport_this_week',
         'container' => 'left-8',
     ];
+    $widgets[] = [
+        'path'      => 'jobreports/widgets/jobreport_unfinished_project',
+        'container' => 'left-8',
+    ];
 
     return $widgets;
 }

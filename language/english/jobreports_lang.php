@@ -122,6 +122,9 @@ $lang['jobreport_declare']                = 'hereby declare that :';
 $lang['jobreport_result']                = 'The work has been completed with the following results:';
 $lang['jobreport_closing']                ='This Minutes of Work Completion is made to be used properly, thank you for your attention and cooperation.';
 
+$lang['jobreport_unfinished_project']				= 'Jobreport from finished project ';
+
+
 
 /*
 

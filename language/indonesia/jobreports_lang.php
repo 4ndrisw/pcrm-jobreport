@@ -120,6 +120,7 @@ $lang['jobreport_result']                = 'Telah selesai dikerjakan dengan baik
 $lang['jobreport_closing']                ='Berita Acara Penyelesaian Pekerjaan ini dibuat untuk dipergunakan sebagaimana mestinya, atas perhatian dan kerjasamanya kami ucapkan terima kasih.';
 
 $lang['jobreport_terms_and_conditions']		='Syarat dan ketentuan';
+$lang['jobreport_unfinished_project']				= 'BAPP dari project yg belum selesai';
 
 /*
 
