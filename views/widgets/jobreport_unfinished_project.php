@@ -2,7 +2,7 @@
 <?php
     $CI = &get_instance();
     $CI->load->model('jobreports/jobreports_model');
-    $jobreports = $CI->jobreports_model->get_jobreport_unfinished_project();    
+    $jobreports = $CI->jobreports_model->get_jobreport_unfinished_project();
 ?>
 
 
