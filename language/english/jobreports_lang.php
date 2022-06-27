@@ -127,6 +127,12 @@ $lang['jobreport_send_telegram_message']				= 'Send telegram message';
 $lang['view_compact_pdf']				= 'Compact PDF';
 $lang['view_full_pdf']				= 'Full PDF';
 
+$lang['jobreport_task']				= 'Equipment';
+$lang['jobreport_tag']				= 'Tag';
+$lang['jobreport_flag']				= 'Operation';
+$lang['propose_this_item']				= 'Propose this item';
+$lang['not_jobreport_remove_proposed_item']				= 'Remove item';
+
 
 
 /*

@@ -125,6 +125,11 @@ $lang['jobreport_send_telegram_message']		='Kirim pesan telegram';
 $lang['view_compact_pdf']				= 'Compact PDF';
 $lang['view_full_pdf']				= 'Full PDF';
 
+$lang['jobreport_task']				= 'Equipment';
+$lang['jobreport_tag']				= 'Tag';
+$lang['jobreport_flag']				= 'Operasi';
+$lang['propose_this_item']				= 'Ajukan alat ini';
+$lang['not_jobreport_remove_proposed_item']				= 'Hapus alat';
 /*
 
 

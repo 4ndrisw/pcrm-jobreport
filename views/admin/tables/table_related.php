@@ -14,26 +14,23 @@ $aColumns = [
 ];
 
 $sIndexColumn = 'id';
-$sTable       = db_prefix() . 'tasks';
+$sTable       = db_prefix() . 'jobreport_items';
 
 
 $join = [
+    'RIGHT JOIN ' . db_prefix() . 'tasks ON ' . db_prefix() . 'jobreport_items.task_id = ' . db_prefix() . 'tasks.id',
     'LEFT JOIN ' . db_prefix() . 'projects ON ' . db_prefix() . 'projects.id = ' . db_prefix() . 'tasks.rel_id',
     'LEFT JOIN ' . db_prefix() . 'taggables ON ' . db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id',
     'LEFT JOIN ' . db_prefix() . 'tags ON ' . db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id',
-    'LEFT JOIN ' . db_prefix() . 'jobreport_items ON ' . db_prefix() . 'tasks.id = ' . db_prefix() . 'jobreport_items.task_id',
 ];
 
-$additionalSelect = [db_prefix() . 'jobreport_items.jobreport_id', 
-                     db_prefix() . 'projects.id AS project_id', 
-                     db_prefix() . 'tasks.id AS task_id'];
+$additionalSelect = [db_prefix() . 'jobreport_items.id','jobreport_id',db_prefix() . 'tasks.id as task_id'];
 
 
 $where  = [];
+array_push($where, 'AND ' . db_prefix() . 'projects.id = "'.$project_id.'"');
 array_push($where, 'AND ' . db_prefix() . 'tasks.rel_type = "project"');
-array_push($where, 'AND ' . db_prefix() . 'tasks.rel_id = "'.$project_id.'"');
-//array_push($where, 'AND ' . db_prefix() . 'jobreport_items.jobreport_id = "'.$jobreport_id.'"');
-array_push($where, 'AND ' . db_prefix() . 'jobreport_items.task_id IS NULL');
+array_push($where, 'AND ' . db_prefix() . 'jobreport_items.id IS NULL');
 
 
 $result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, $where, $additionalSelect);
@@ -45,9 +42,10 @@ foreach ($rResult as $aRow) {
     $row = [];
     for ($i = 0; $i < count($aColumns); $i++) {
         $_data = $aRow[$aColumns[$i]];
+
         if ($aColumns[$i] == db_prefix() . 'tasks.name') {
             $_data = '<a href="' . admin_url('tasks/view/' . $aRow['task_id']) . '" target = "_blank">' . $_data . '</a>';
-        }elseif ($aColumns[$i] == 'flag') {
+        } elseif ($aColumns[$i] == 'flag') {
             $_data = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="jobreport_add_item(' . $jobreport_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
         } 
         $row[] = $_data;
