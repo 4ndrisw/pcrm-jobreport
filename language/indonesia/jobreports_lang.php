@@ -134,6 +134,10 @@ $lang['not_jobreport_remove_proposed_item']				= 'Hapus alat';
 $lang['jobreport_already_send_to_client_tooltip'] 					= 'BAPP ini telah dikirim kepada klien %s';
 $lang['not_jobreport_status_change']                   = 'Impor lampiran dari Email';
 $lang['not_jobreport_status_updated']                  = 'Status BAPP Diperbarui: Dari: %s menjadi %s';
+$lang['show_shipping_on_jobreport']         	= 'Tampilkan detail pengiriman pada BAPP';
+$lang['jobreports_tracking']				= 'Jobreports tracking';
+$lang['settings_sales_jobreport_prefix']                             = 'Nomor Awalan BAPP';
+$lang['bill_to']				= 'Tagihkan kepada';
 
 
 /*
@@ -141,7 +145,6 @@ $lang['not_jobreport_status_updated']                  = 'Status BAPP Diperbarui
 
 # BAPPs
 $lang['client_zip_jobreports']     = 'Kompres BAPP (zip)';
-$lang['settings_sales_jobreport_prefix']                             = 'Nomor Awalan BAPP';
 $lang['settings_sales_next_jobreport_number']                        = 'Nomor BAPP Berikutnya';
 $lang['settings_sales_next_jobreport_number_tooltip']                = 'Isi dengan angka 1 jika ingin memulai nomor BAPP dari awal.';
 $lang['settings_sales_decrement_jobreport_number_on_delete']         = 'Turunkan nomor BAPP pada BAPP yang dihapus?';
@@ -226,7 +229,6 @@ $lang['custom_field_jobreport']    = 'BAPP';
 $lang['invoice_jobreport_general_options'] 			= 'Pengaturan Umum';
 $lang['jobreport_convert_to_jobreport_successfully'] 	= 'BAPP berhasil dikonversi menjadi BAPP';
 $lang['jobreport_table_item_description']          	= 'Deskripsi';
-$lang['show_shipping_on_jobreport']         	= 'Tampilkan detail pengiriman pada BAPP';
 $lang['is_invoiced_jobreport_delete_error'] 	= 'BAPP ini telah diberi Faktur. Anda tidak dapat menghapus BAPP ini.';
 $lang['show_jobreports_on_calendar']          									= 'BAPP';
 $lang['bulk_export_pdf_jobreports']     		= 'BAPP';

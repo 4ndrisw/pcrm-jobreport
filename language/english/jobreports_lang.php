@@ -136,13 +136,16 @@ $lang['not_jobreport_remove_proposed_item']				= 'Remove item';
 $lang['jobreport_already_send_to_client_tooltip']  = 'This jobreport is already sent to the client %s';
 $lang['not_jobreport_status_change']                               = 'Imported attachment from email';
 $lang['not_jobreport_status_updated']                              = 'Job report Status Updated: From: %s to %s';
+$lang['show_shipping_on_jobreport']         = 'Show shipping details in jobreport';
+$lang['jobreports_tracking']				= 'Jobreports tracking';
+$lang['settings_sales_company_info_note']                          = 'These information will be displayed on invoices/jobreports/payments and other PDF documents where company info is required';
+$lang['bill_to']				= 'Bill to';
 
 
 
 /*
 
 # Job reports
-$lang['settings_sales_company_info_note']                          = 'These information will be displayed on invoices/jobreports/payments and other PDF documents where company info is required';
 $lang['client_zip_jobreports']     = 'ZIP Job reports';
 $lang['settings_sales_jobreport_prefix']                             = 'Job report Number Prefix';
 $lang['settings_sales_next_jobreport_number']                        = 'Next jobreport Number';
@@ -186,7 +189,6 @@ $lang['settings_show_assigned_on_jobreports']      = 'Show Sale Agent On Job rep
 $lang['custom_field_jobreport']    = 'Job report';
 $lang['jobreport_general_options'] = 'General Options';
 $lang['jobreport_convert_to_successfully'] = 'Job report converted to invoice successfully';
-$lang['show_shipping_on_jobreport']         = 'Show shipping details in jobreport';
 $lang['is_invoiced_jobreport_delete_error'] = 'This jobreport is invoiced. You cant delete the jobreport';
 $lang['customer_update_address_info_on_invoices']              = 'Update the shipping/billing info on all previous invoices/jobreports';
 $lang['customer_update_address_info_on_invoices_help']         = 'If you check this field shipping and billing info will be updated to all invoices and jobreports. Note: Invoices with status paid won\'t be affected.';
