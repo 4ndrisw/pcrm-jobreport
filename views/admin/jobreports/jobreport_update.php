@@ -28,8 +28,8 @@
 		// Project ajax search
 		init_ajax_project_search_by_customer_id();
 		// Maybe items ajax search
-	    init_ajax_search('items','#item_select.ajax-search',undefined,admin_url+'items/search');
-	    add_jobreport_item_to_table('data', 'itemid');
+//	    init_ajax_search('items','#item_select.ajax-search',undefined,admin_url+'items/search');
+//	    add_jobreport_item_to_table('data', 'itemid');
 	});
 </script>
 </body>
