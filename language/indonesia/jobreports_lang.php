@@ -131,6 +131,11 @@ $lang['jobreport_flag']				= 'Operasi';
 $lang['propose_this_item']				= 'Ajukan alat ini';
 $lang['remove_this_item']				= 'Hapus item ini';
 $lang['not_jobreport_remove_proposed_item']				= 'Hapus alat';
+$lang['jobreport_already_send_to_client_tooltip'] 					= 'BAPP ini telah dikirim kepada klien %s';
+$lang['not_jobreport_status_change']                   = 'Impor lampiran dari Email';
+$lang['not_jobreport_status_updated']                  = 'Status BAPP Diperbarui: Dari: %s menjadi %s';
+
+
 /*
 
 
@@ -171,7 +176,6 @@ $lang['jobreport_invoiced_date']                  					= 'BAPP telah diberi Fakt
 $lang['edit_jobreport_tooltip']                   					= 'Edit BAPP';
 $lang['delete_jobreport_tooltip']                 					= 'Hapus BAPP';
 $lang['jobreport_sent_to_email_tooltip']          					= 'Kirim ke Email';
-$lang['jobreport_already_send_to_client_tooltip'] 					= 'BAPP ini telah dikirim kepada klien %s';
 $lang['jobreport_view_activity_tooltip']          					= 'Aktivitas Log';
 $lang['jobreport_send_to_client_modal_heading']    					= 'Kirim BAPP ke Klien';
 $lang['jobreport_send_to_client_attach_pdf']       					= 'Lampirkan BAPP dalam format PDF';
@@ -238,8 +242,6 @@ $lang['proposal_convert_to_jobreport']           = 'Konversi menjadi BAPP';
 $lang['proposal_converted_to_jobreport_success'] = 'Proposal berhasil dikonversi menjadi BAPP';
 $lang['proposal_converted_to_jobreport_fail']    = 'Gagal mengkonversi Proposal menjadi BAPP';
 $lang['customer_have_jobreports_by']      		= 'Berisi BAPP berdasarkan status %s';
-$lang['not_jobreport_status_change']                   = 'Impor lampiran dari Email';
-$lang['not_jobreport_status_updated']                  = 'Status BAPP Diperbarui: Dari: %s menjadi %s';
 $lang['not_jobreport_customer_accepted']                           	= 'Selamat! Klien menerima BAPP dengan nomor %s';
 $lang['not_jobreport_customer_declined']                           	= 'Klien menolak BAPP dengan nomor %s';
 $lang['jobreport_activity_converted']                              	= 'BAPP ini dikonversi menjadi invoice.<br /> %s';

@@ -133,6 +133,9 @@ $lang['jobreport_flag']				= 'Operation';
 $lang['propose_this_item']				= 'Propose this item';
 $lang['remove_this_item']				= 'Remove this item';
 $lang['not_jobreport_remove_proposed_item']				= 'Remove item';
+$lang['jobreport_already_send_to_client_tooltip']  = 'This jobreport is already sent to the client %s';
+$lang['not_jobreport_status_change']                               = 'Imported attachment from email';
+$lang['not_jobreport_status_updated']                              = 'Job report Status Updated: From: %s to %s';
 
 
 
@@ -153,7 +156,6 @@ $lang['jobreport_add_edit_currency']               = 'Currency';
 $lang['jobreports_toggle_table_tooltip']           = 'Toggle Table';
 $lang['jobreport_add_edit_advanced_options']       = 'Advanced Options';
 $lang['jobreports_list_all']                       = 'All';
-$lang['jobreport_already_send_to_client_tooltip']  = 'This jobreport is already sent to the client %s';
 $lang['jobreport_send_to_client_modal_heading']    = 'Send jobreport to client';
 $lang['jobreport_send_to_client_attach_pdf']       = 'Attach jobreport PDF';
 $lang['jobreport_send_to_client_preview_template'] = 'Preview Email Template';
@@ -198,8 +200,6 @@ $lang['proposal_convert_to_jobreport']           = 'Convert to Job report';
 $lang['proposal_converted_to_jobreport_success'] = 'Proposal converted to jobreport successfully';
 $lang['proposal_converted_to_jobreport_fail']    = 'Failed to convert proposal to jobreport';
 $lang['customer_have_jobreports_by']      = 'Contains jobreports by status %s';
-$lang['not_jobreport_status_change']                               = 'Imported attachment from email';
-$lang['not_jobreport_status_updated']                              = 'Job report Status Updated: From: %s to %s';
 $lang['not_jobreport_customer_accepted']                           = 'Congratulations! Client accepted jobreport with number %s';
 $lang['not_jobreport_customer_declined']                           = 'Client declined jobreport with number %s';
 $lang['jobreport_activity_converted']                              = 'converted this jobreport to invoice.<br /> %s';
