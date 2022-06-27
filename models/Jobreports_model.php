@@ -1342,12 +1342,12 @@ class Jobreports_model extends App_Model
 
         $this->db->select([db_prefix() . 'tasks.id AS task_id', db_prefix() . 'tasks.name AS task_name']);
         $this->db->select([db_prefix() . 'jobreport_items.jobreport_id', db_prefix() . 'projects.id AS project_id', db_prefix() . 'tags.name AS tags_name', 'COUNT('.db_prefix() . 'tasks.id) AS count']);
-        
+
         $this->db->join(db_prefix() . 'tasks', db_prefix() . 'tasks.id = ' . db_prefix() . 'jobreport_items.task_id', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
         $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
         $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
-        
+
         $this->db->group_by(db_prefix() . 'jobreport_items.jobreport_id');
         $this->db->group_by(db_prefix() . 'jobreport_items.project_id');
         $this->db->group_by(db_prefix() . 'jobreport_items.task_id');
@@ -1364,14 +1364,14 @@ class Jobreports_model extends App_Model
 
 
   public function get_jobreport_taggable_items($jobreport_id, $project_id){
-     
+
         $this->db->select([db_prefix() . 'tags.name AS tags_name', 'COUNT('.db_prefix() . 'tags.name) AS count']);
-        
+
         $this->db->join(db_prefix() . 'tasks', db_prefix() . 'tasks.id = ' . db_prefix() . 'jobreport_items.task_id', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
         $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
         $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
-        
+
         $this->db->group_by(db_prefix() . 'tags.name');
 
         $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
@@ -1384,9 +1384,7 @@ class Jobreports_model extends App_Model
 
 
     public function jobreport_add_item($data){
-        
-        log_activity(json_encode($data));
-        
+    
         $this->db->insert(db_prefix() . 'jobreport_items', [
                 'jobreport_id'      => $data['jobreport_id'],
                 'project_id' => $data['project_id'],
@@ -1407,7 +1405,7 @@ class Jobreports_model extends App_Model
             $this->db->delete(db_prefix() . 'jobreport_items', [
                 'jobreport_id' => $data['jobreport_id'],
                 'task_id' => $data['task_id'],
-            ]);            
+            ]);
         //}
 
         $_log_message = '';
@@ -1425,7 +1423,7 @@ class Jobreports_model extends App_Model
                     'jobreport_id' => $data['jobreport_id'],
                     'task_id' => $data['task_id'],
                 ]);
-            
+
         }
 
         if ($affectedRows > 0) {
