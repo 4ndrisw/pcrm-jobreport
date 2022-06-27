@@ -759,7 +759,7 @@ class Jobreports_model extends App_Model
             $this->db->where('jobreportid', $id);
             $this->db->set('jobreportid', NULL, true);
             $this->db->set('jobreport_date', NULL, true);
-            $this->db->update(db_prefix() . 'jobreports');
+            $this->db->update(db_prefix() . 'schedules');
 
             $this->db->where('rel_id', $id);
             $this->db->where('rel_type', 'jobreport');
