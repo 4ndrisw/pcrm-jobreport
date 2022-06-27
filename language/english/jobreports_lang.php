@@ -140,6 +140,8 @@ $lang['show_shipping_on_jobreport']         = 'Show shipping details in jobrepor
 $lang['jobreports_tracking']				= 'Jobreports tracking';
 $lang['settings_sales_company_info_note']                          = 'These information will be displayed on invoices/jobreports/payments and other PDF documents where company info is required';
 $lang['bill_to']				= 'Bill to';
+$lang['attach_file']				= 'Attach file';
+
 
 
 
