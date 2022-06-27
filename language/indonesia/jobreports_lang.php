@@ -129,6 +129,7 @@ $lang['jobreport_task']				= 'Equipment';
 $lang['jobreport_tag']				= 'Tag';
 $lang['jobreport_flag']				= 'Operasi';
 $lang['propose_this_item']				= 'Ajukan alat ini';
+$lang['remove_this_item']				= 'Hapus item ini';
 $lang['not_jobreport_remove_proposed_item']				= 'Hapus alat';
 /*
 

@@ -131,6 +131,7 @@ $lang['jobreport_task']				= 'Equipment';
 $lang['jobreport_tag']				= 'Tag';
 $lang['jobreport_flag']				= 'Operation';
 $lang['propose_this_item']				= 'Propose this item';
+$lang['remove_this_item']				= 'Remove this item';
 $lang['not_jobreport_remove_proposed_item']				= 'Remove item';
 
 
