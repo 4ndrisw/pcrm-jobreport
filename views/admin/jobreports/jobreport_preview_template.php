@@ -276,10 +276,8 @@
 
                                  $this->load->view('admin/jobreports/jobreport_items_table');
 
-
-
-                                 $items = get_jobreport_items_table_data($jobreport, 'jobreport', 'html', true);
-                                 echo $items->table();
+                                 //$items = get_jobreport_items_table_data($jobreport, 'jobreport', 'html', true);
+                                 //echo $items->table();
                               ?>
                         </div>
                      </div>
