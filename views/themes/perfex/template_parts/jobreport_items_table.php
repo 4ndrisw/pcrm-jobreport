@@ -1,8 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<?php 
-echo $jobreport_taggable_items;
-return;
-?>
 
 <table class="table table-jobreport-items" data-order-col="1" data-order-type="desc">
     <thead>
