@@ -15,6 +15,8 @@
       <hr />
       <?php render_yes_no_option('delete_only_on_last_jobreport','delete_only_on_last_jobreport'); ?>
       <hr />
+      <?php render_yes_no_option('jobreport_send_telegram_message','jobreport_send_telegram_message'); ?>
+      <hr />
       <?php render_yes_no_option('jobreport_number_decrement_on_delete','decrement_jobreport_number_on_delete','decrement_jobreport_number_on_delete_tooltip'); ?>
       <hr />
       <?php echo render_yes_no_option('allow_staff_view_jobreports_assigned','allow_staff_view_jobreports_assigned'); ?>

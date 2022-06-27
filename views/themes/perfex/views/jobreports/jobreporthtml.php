@@ -149,6 +149,8 @@
             <div class="col-md-12">
                <div class="table-responsive">
                   <?php
+                     $this->view('themes/'. active_clients_theme() .'/template_parts/jobreport_items_table');
+
                      $items = get_jobreport_items_table_data($jobreport, 'jobreport');
                      echo $items->table();
                   ?>

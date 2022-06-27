@@ -73,6 +73,9 @@ class Myjobreport extends ClientsController
         $this->disableNavigation();
         $this->disableSubMenu();
 
+        $data['jobreport_items'] = $this->jobreports_model->get_jobreport_items($jobreport->id, $jobreport->project_id);
+        //$data['jobreport_taggable_items'] = $this->jobreports_model->get_jobreport_taggable_items($jobreport->id, $jobreport->project_id);
+
         $data['jobreport_number']              = $jobreport_number;
         $data['hash']                          = $hash;
         $data['can_be_accepted']               = false;
@@ -144,6 +147,7 @@ class Myjobreport extends ClientsController
         }
         $jobreport        = $this->jobreports_model->get($id);
         $jobreport_number = format_jobreport_number($jobreport->id);
+        $jobreport->items = $this->jobreports_model->get_jobreport_items($jobreport->id, $jobreport->project_id);
 
         $jobreport->assigned_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id.'/assigned-'.$jobreport_number.'.png';
         $jobreport->acceptance_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id .'/'.$jobreport->signature;
@@ -179,6 +183,61 @@ class Myjobreport extends ClientsController
 
         $pdf->Output($fileNameHookData['file_name'], $type);
     }
+
+
+    /* Generates jobreport PDF and senting to email  */
+    public function taggable_pdf($id)
+    {
+        $canView = user_can_view_jobreport($id);
+        if (!$canView) {
+            access_denied('Jobreports');
+        } else {
+            if (!has_permission('jobreports', '', 'view') && !has_permission('jobreports', '', 'view_own') && $canView == false) {
+                access_denied('Jobreports');
+            }
+        }
+        if (!$id) {
+            redirect(admin_url('jobreports'));
+        }
+        $jobreport        = $this->jobreports_model->get($id);
+        $jobreport_number = format_jobreport_number($jobreport->id);
+        $jobreport->items = $this->jobreports_model->get_jobreport_taggable_items($jobreport->id, $jobreport->project_id);
+
+        $jobreport->assigned_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id.'/assigned-'.$jobreport_number.'.png';
+        $jobreport->acceptance_path = FCPATH . get_jobreport_upload_path('jobreport').$jobreport->id .'/'.$jobreport->signature;
+        $jobreport->client_company = $this->clients_model->get($jobreport->clientid)->company;
+        $jobreport->acceptance_date_string = _dt($jobreport->acceptance_date);
+
+
+        try {
+            $pdf = jobreport_tags_pdf($jobreport);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            echo $message;
+            if (strpos($message, 'Unable to get the size of the image') !== false) {
+                show_pdf_unable_to_get_image_size_error();
+            }
+            die;
+        }
+
+        $type = 'D';
+
+        if ($this->input->get('output_type')) {
+            $type = $this->input->get('output_type');
+        }
+
+        if ($this->input->get('print')) {
+            $type = 'I';
+        }
+
+        $fileNameHookData = hooks()->apply_filters('jobreport_file_name_admin_area', [
+                            'file_name' => mb_strtoupper(slug_it($jobreport_number)) . '.pdf',
+                            'jobreport'  => $jobreport,
+                        ]);
+
+        $pdf->Output($fileNameHookData['file_name'], $type);
+    }
+
 
 
 }

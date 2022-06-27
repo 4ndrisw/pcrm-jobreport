@@ -88,14 +88,8 @@
                   <div class="btn-group">
                      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-pdf-o"></i><?php if(is_mobile()){echo ' PDF';} ?> <span class="caret"></span></a>
                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="hidden-xs"><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>"><?php echo _l('view_pdf'); ?></a></li>
-                        <li class="hidden-xs"><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_in_new_window'); ?></a></li>
-                        <li><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id); ?>"><?php echo _l('download'); ?></a></li>
-                        <li>
-                           <a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?print=true'); ?>" target="_blank">
-                           <?php echo _l('print'); ?>
-                           </a>
-                        </li>
+                        <li class="hidden-xs"><a href="<?php echo site_url('jobreports/taggable_pdf/'.$jobreport->id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_compact_pdf'); ?></a></li>
+                        <li class="hidden-xs"><a href="<?php echo site_url('jobreports/pdf/'.$jobreport->id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_full_pdf'); ?></a></li>
                      </ul>
                   </div>
                   <?php
@@ -279,11 +273,22 @@
                      <div class="col-md-12 jobreport-items">
                         <div class="table-responsive">
                               <?php
+
+                                 $this->load->view('admin/jobreports/jobreport_items_table');
+
+
+
                                  $items = get_jobreport_items_table_data($jobreport, 'jobreport', 'html', true);
                                  echo $items->table();
                               ?>
                         </div>
                      </div>
+
+                     <div class="col-md-12 jobreport-items">
+                     
+
+                     </div>
+
                      <?php if(count($jobreport->attachments) > 0){ ?>
                         <div class="clearfix"></div>
                         <hr />
@@ -449,4 +454,5 @@
       </div>
    </div>
 </div>
-<?php $this->load->view('admin/jobreports/jobreport_send_to_client'); ?>
+
+<?php //$this->load->view('admin/jobreports/jobreport_send_to_client'); ?>

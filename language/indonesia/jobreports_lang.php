@@ -121,6 +121,9 @@ $lang['jobreport_closing']                ='Berita Acara Penyelesaian Pekerjaan 
 
 $lang['jobreport_terms_and_conditions']		='Syarat dan ketentuan';
 $lang['jobreport_unfinished_project']				= 'BAPP dari project yg belum selesai';
+$lang['jobreport_send_telegram_message']		='Kirim pesan telegram';
+$lang['view_compact_pdf']				= 'Compact PDF';
+$lang['view_full_pdf']				= 'Full PDF';
 
 /*
 

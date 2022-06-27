@@ -123,6 +123,9 @@ $lang['jobreport_result']                = 'The work has been completed with the
 $lang['jobreport_closing']                ='This Minutes of Work Completion is made to be used properly, thank you for your attention and cooperation.';
 
 $lang['jobreport_unfinished_project']				= 'Jobreport from unfinished project ';
+$lang['jobreport_send_telegram_message']				= 'Send telegram message';
+$lang['view_compact_pdf']				= 'Compact PDF';
+$lang['view_full_pdf']				= 'Full PDF';
 
 
 

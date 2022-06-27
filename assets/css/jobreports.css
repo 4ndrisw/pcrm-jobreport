@@ -14,3 +14,11 @@ body #jobreport-preview .jobreport-items table tbody td.description span{
         width: 100%;
     }
 }
+
+.table-bordered{
+    border: 1px solid #000;
+}
+
+.table-jobreport-items th, .table-jobreport-items td {
+  padding: 15px;
+}

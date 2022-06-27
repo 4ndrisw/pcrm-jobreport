@@ -21,7 +21,7 @@ class Jobreports_model extends App_Model
             5,
             3,
             4,
-        ]);   
+        ]);
     }
     /**
      * Get unique sale agent for jobreports / Used for filters
@@ -145,16 +145,12 @@ class Jobreports_model extends App_Model
         $new_jobreport_data['number']     = get_option('next_jobreport_number');
         $new_jobreport_data['date']       = _d(date('Y-m-d'));
 
-    
-
         $number = get_option('next_jobreport_number');
         $format = get_option('jobreport_number_format');
         $prefix = get_option('jobreport_prefix');
         $date = date('Y-m-d');
-        
+
         $new_jobreport_data['formatted_number'] = jobreport_number_format($number, $format, $prefix, $date);
-
-
 
         $new_jobreport_data['terms']            = $_jobreport->terms;
         $new_jobreport_data['assigned']       = $_jobreport->assigned;
@@ -186,7 +182,7 @@ class Jobreports_model extends App_Model
             $new_jobreport_data['newitems'][$key]['long_description'] = clear_textarea_breaks($item['long_description']);
             $new_jobreport_data['newitems'][$key]['qty']              = $item['qty'];
             $new_jobreport_data['newitems'][$key]['unit']             = $item['unit'];
-            
+
             $new_jobreport_data['newitems'][$key]['order'] = $item['item_order'];
             $key++;
         }
@@ -197,6 +193,8 @@ class Jobreports_model extends App_Model
             handle_tags_save($tags, $id, 'jobreport');
 
             $this->log_jobreport_activity('Copied Jobreport ' . format_jobreport_number($_jobreport->id));
+
+            hooks()->do_action('after_jobreport_copy', ['jobreport_id' => $id, 'project_id' => $_jobreport->project_id]);
 
             return $id;
         }
@@ -283,7 +281,7 @@ class Jobreports_model extends App_Model
     public function add($data)
     {
         $affectedRows = 0;
-        
+
         $data['datecreated'] = date('Y-m-d H:i:s');
 
         $data['addedfrom'] = get_staff_user_id();
@@ -368,6 +366,7 @@ class Jobreports_model extends App_Model
      * @param mixed $id item id
      * @return object
      */
+    /*
     public function get_jobreport_item($id)
     {
         $this->db->where('rel_id', $id);
@@ -375,6 +374,7 @@ class Jobreports_model extends App_Model
 
         return $this->db->get(db_prefix() . 'jobreport_items')->result();
     }
+    */
 
     /**
      * Update jobreport data
@@ -614,11 +614,11 @@ class Jobreports_model extends App_Model
                 if ($action == 2) {
                     $this->db->where('id', $id);
                     $this->db->update(db_prefix() . 'jobreports', ['sent' => 1, 'datesend' => date('Y-m-d H:i:s')]);
-                
+
                     $this->db->where('active', 1);
                     $staff_jobreport = $this->db->get(db_prefix() . 'staff')->result_array();
                     $contacts = $this->clients_model->get_contacts($jobreport->clientid, ['active' => 1, 'project_emails' => 1]);
-                    
+
                         foreach ($staff_jobreport as $member) {
                             $notified = add_notification([
                                 'fromcompany'     => true,
@@ -629,7 +629,7 @@ class Jobreports_model extends App_Model
                                     format_jobreport_number($jobreport->id),
                                 ]),
                             ]);
-                    
+
                             if ($notified) {
                                 array_push($notifiedUsers, $member['staffid']);
                             }
@@ -728,6 +728,7 @@ class Jobreports_model extends App_Model
             ];
         }
         */
+
         hooks()->do_action('before_jobreport_deleted', $id);
 
         $number = format_jobreport_number($id);
@@ -758,7 +759,7 @@ class Jobreports_model extends App_Model
             $this->db->where('jobreportid', $id);
             $this->db->set('jobreportid', NULL, true);
             $this->db->set('jobreport_date', NULL, true);
-            $this->db->update(db_prefix() . 'schedules');
+            $this->db->update(db_prefix() . 'jobreports');
 
             $this->db->where('rel_id', $id);
             $this->db->where('rel_type', 'jobreport');
@@ -776,8 +777,7 @@ class Jobreports_model extends App_Model
             $this->db->where('rel_id', $id);
             $this->db->delete(db_prefix() . 'reminders');
 
-            $this->db->where('rel_id', $id);
-            $this->db->where('rel_type', 'jobreport');
+            $this->db->where('jobreport_id', $jobreport->id);
             $this->db->delete(db_prefix() . 'jobreport_items');
 
             $this->db->where('rel_id', $id);
@@ -1302,6 +1302,141 @@ class Jobreports_model extends App_Model
         //return $this->db->get_compiled_select(db_prefix() . 'jobreports');
         return $this->db->get(db_prefix() . 'jobreports')->result_array();
 
+    }
+
+
+    public function get_related_tasks($jobreport_id, $project_id){
+
+        $this->db->select([db_prefix() . 'tasks.id',db_prefix() . 'tasks.name', db_prefix() . 'tags.id AS tag_id', db_prefix() . 'tags.name AS tags_name']);
+
+        $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
+        $this->db->join(db_prefix() . 'jobreport_items', db_prefix() . 'tasks.id = ' . db_prefix() . 'jobreport_items.task_id', 'left');
+
+        $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'taggables.rel_type = ' . "'task'");
+        $this->db->where(db_prefix() . 'jobreport_items.task_id IS NULL');
+
+        //return $this->db->get_compiled_select(db_prefix() . 'tasks');
+        return $this->db->get(db_prefix() . 'tasks')->result_array();
+    }
+
+
+    public function get_converted_tasks($jobreport_id, $project_id){
+
+        $this->db->select([db_prefix() . 'projects.id AS project_id', db_prefix() . 'tasks.id AS task_id']);
+
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
+        $this->db->join(db_prefix() . 'jobreport_items', db_prefix() . 'tasks.id = ' . db_prefix() . 'jobreport_items.task_id', 'left');
+
+        $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'jobreport_items.task_id IS NULL');
+
+        //return $this->db->get_compiled_select(db_prefix() . 'tasks');
+        return $this->db->get(db_prefix() . 'tasks')->result_array();
+    }
+
+  public function get_jobreport_items($jobreport_id, $project_id){
+
+        $this->db->select([db_prefix() . 'tasks.id AS task_id', db_prefix() . 'tasks.name AS task_name']);
+        $this->db->select([db_prefix() . 'jobreport_items.jobreport_id', db_prefix() . 'projects.id AS project_id', db_prefix() . 'tags.name AS tags_name', 'COUNT('.db_prefix() . 'tasks.id) AS count']);
+        
+        $this->db->join(db_prefix() . 'tasks', db_prefix() . 'tasks.id = ' . db_prefix() . 'jobreport_items.task_id', 'left');
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
+        $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
+        
+        $this->db->group_by(db_prefix() . 'jobreport_items.jobreport_id');
+        $this->db->group_by(db_prefix() . 'jobreport_items.project_id');
+        $this->db->group_by(db_prefix() . 'jobreport_items.task_id');
+        $this->db->group_by(db_prefix() . 'tasks.name');
+
+        $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'jobreport_items.jobreport_id=' . $jobreport_id);
+
+        //return $this->db->get_compiled_select(db_prefix() . 'jobreport_items');
+        return $this->db->get(db_prefix() . 'jobreport_items')->result_array();
+    }
+
+
+  public function get_jobreport_taggable_items($jobreport_id, $project_id){
+     
+        $this->db->select([db_prefix() . 'tags.name AS tags_name', 'COUNT('.db_prefix() . 'tags.name) AS count']);
+        
+        $this->db->join(db_prefix() . 'tasks', db_prefix() . 'tasks.id = ' . db_prefix() . 'jobreport_items.task_id', 'left');
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
+        $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
+        
+        $this->db->group_by(db_prefix() . 'tags.name');
+
+        $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'jobreport_items.jobreport_id=' . $jobreport_id);
+
+        //return $this->db->get_compiled_select(db_prefix() . 'jobreport_items');
+        return $this->db->get(db_prefix() . 'jobreport_items')->result_array();
+    }
+
+
+    public function jobreport_add_item($data){
+        
+        log_activity(json_encode($data));
+        
+        $this->db->insert(db_prefix() . 'jobreport_items', [
+                'jobreport_id'      => $data['jobreport_id'],
+                'project_id' => $data['project_id'],
+                'task_id'              => $data['task_id']]);
+    }
+
+
+
+    public function jobreport_remove_item($data)
+    {
+
+        $affectedRows   = 0;
+
+        //$this->db->where('jobreport_id', $data['jobreport_id']);
+        //$this->db->where('task_id', $data['task_id']);
+        //$id = $this->db->get(db_prefix() . 'jobreport_items')->row();
+        //if(isset($id)){
+            $this->db->delete(db_prefix() . 'jobreport_items', [
+                'jobreport_id' => $data['jobreport_id'],
+                'task_id' => $data['task_id'],
+            ]);            
+        //}
+
+        $_log_message = '';
+
+        if ($this->db->affected_rows() > 0) {
+            $affectedRows++;
+                $_log_message    = 'not_jobreport_remove_proposed_item';
+                $additional_data = serialize([
+                    get_staff_full_name(),
+                    $data['jobreport_id'],
+                    $data['task_id'],
+                ]);
+
+                hooks()->do_action('jobreport_remove_proposed_item', [
+                    'jobreport_id' => $data['jobreport_id'],
+                    'task_id' => $data['task_id'],
+                ]);
+            
+        }
+
+        if ($affectedRows > 0) {
+            if ($_log_message == '') {
+                return true;
+            }
+            $this->log_jobreport_activity($data['jobreport_id'], $_log_message, false, $additional_data);
+
+            return true;
+        }
+
+        return false;
     }
 
 

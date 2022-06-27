@@ -140,9 +140,33 @@ function jobreport_mark_as(status_id, jobreport_id) {
     });
 }
 
+
+// From jobreport table mark as
+function jobreport_remove_item(jobreport_id, task_id) {
+    var data = {};
+    data.jobreport_id = jobreport_id;
+    data.task_id = task_id;
+    $.post(admin_url + 'jobreports/remove_item', data).done(function (response) {
+        reload_jobreports_tables();
+    });
+}
+
+// From jobreport table mark as
+
+function jobreport_add_item(jobreport_id, project_id, task_id) {
+    var data = {};
+    data.jobreport_id = jobreport_id;
+    data.project_id = project_id;
+    data.task_id = task_id;
+    $.post(admin_url + 'jobreports/add_item', data).done(function (response) {
+        reload_jobreports_tables();
+    });
+}
+
+
 // Reload all jobreports possible table where the table data needs to be refreshed after an action is performed on task.
 function reload_jobreports_tables() {
-    var av_jobreports_tables = ['.table-jobreports', '.table-rel-jobreports'];
+    var av_jobreports_tables = ['.table-jobreports', '.table-rel-jobreports', '.table-jobreport-items', '.table-jobreport-related'];
     $.each(av_jobreports_tables, function (i, selector) {
         if ($.fn.DataTable.isDataTable(selector)) {
             $(selector).DataTable().ajax.reload(null, false);

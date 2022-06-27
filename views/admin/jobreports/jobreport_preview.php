@@ -15,9 +15,19 @@
 				<?php $this->load->view('admin/jobreports/jobreport_preview_template'); ?>
 			</div>
 		</div>
+		<div class="row">
+			<div class="row">
+				<div class="col-md-12 no-padding jobreport-table-related">
+					<?php $this->load->view('admin/jobreports/jobreport_table_related'); ?>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
 </div>
 <?php init_tail(); ?>
+<script type="text/javascript" id="jobreport-js" src="<?= base_url() ?>modules/jobreports/assets/js/jobreports.js?"></script>
 
 <script>
    init_items_sortable(true);
@@ -37,5 +47,15 @@
     });
 </script>
 
+<script>
+    $(function(){
+        initDataTable('.table-jobreport-items', admin_url+'jobreports/table_items', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+    });
+</script>
+<script>
+    $(function(){
+        initDataTable('.table-jobreport-related', admin_url+'jobreports/table_related', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+    });
+</script>
 </body>
 </html>

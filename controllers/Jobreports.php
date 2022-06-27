@@ -42,7 +42,17 @@ class Jobreports extends AdminController
         $data['jobreport'] = $jobreport;
         $data['edit']     = false;
         $title            = _l('preview_jobreport');
-    
+
+
+        if ($this->input->post()) {
+
+            $jobreport_data = $this->input->post();
+            if(!empty($jobreport_data['tasks'])){
+                $tasks_data = $jobreport_data['tasks'];
+                $this->jobreports_model->add_edit_jobreport_items($id, $jobreport->project_id, $tasks_data);
+            }
+
+        }
 
         if ($this->input->get('customer_id')) {
             $data['customer_id'] = $this->input->get('customer_id');
@@ -52,8 +62,8 @@ class Jobreports extends AdminController
         $data['jobreport_statuses'] = $this->jobreports_model->get_statuses();
         $data['title']             = $title;
 
-        $jobreport->date       = _d($jobreport->date);        
-        
+        $jobreport->date       = _d($jobreport->date);
+
         if ($jobreport->project_id !== null) {
             $this->load->model('projects_model');
             $jobreport->project_data = $this->projects_model->get($jobreport->project_id);
@@ -70,12 +80,15 @@ class Jobreports extends AdminController
         $data['members']           = $this->staff_model->get('', ['active' => 1]);
         $data['jobreport_statuses'] = $this->jobreports_model->get_statuses();
         $data['totalNotes']        = total_rows(db_prefix() . 'notes', ['rel_id' => $id, 'rel_type' => 'jobreport']);
+        $data['related_tasks'] = $this->jobreports_model->get_related_tasks($id, $jobreport->project_data->id);
 
         $data['send_later'] = false;
         if ($this->session->has_userdata('send_later')) {
             $data['send_later'] = true;
             $this->session->unset_userdata('send_later');
         }
+        $this->session->set_userdata('jobreport_id', $jobreport->id);
+        $this->session->set_userdata('project_id', $jobreport->project_data->id);
 
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('jobreports', 'admin/tables/small_table'));
@@ -105,13 +118,13 @@ class Jobreports extends AdminController
             $next_jobreport_number = get_option('next_jobreport_number');
             $_format = get_option('jobreport_number_format');
             $_prefix = get_option('jobreport_prefix');
-            
+
             $prefix  = isset($jobreport->prefix) ? $jobreport->prefix : $_prefix;
             $format  = isset($jobreport->number_format) ? $jobreport->number_format : $_format;
             $number  = isset($jobreport->number) ? $jobreport->number : $next_jobreport_number;
 
             $date = date('Y-m-d');
-            
+
             $jobreport_data['formatted_number'] = jobreport_number_format($number, $format, $prefix, $date);
 
             $id = $this->jobreports_model->add($jobreport_data);
@@ -161,10 +174,10 @@ class Jobreports extends AdminController
         $data['project_id'] = $this->uri->segment(5);
 
         $project = $this->projects_model->get($data['project_id']);
-        
+
         $data['project_data'] = false;
         $data['task'] = false;
-        
+
         if(isset($project->id)){
             $data['project_data'] = $project;
             $data['client_data'] = $project->client_data;
@@ -189,13 +202,13 @@ class Jobreports extends AdminController
             $next_jobreport_number = get_option('next_jobreport_number');
             $_format = get_option('jobreport_number_format');
             $_prefix = get_option('jobreport_prefix');
-            
+
             $prefix  = isset($jobreport->prefix) ? $jobreport->prefix : $_prefix;
             $format  = isset($jobreport->number_format) ? $jobreport->number_format : $_format;
             $number  = isset($jobreport->number) ? $jobreport->number : $next_jobreport_number;
 
             $date = date('Y-m-d');
-            
+
             $jobreport_data['formatted_number'] = jobreport_number_format($number, $format, $prefix, $date);
 
             $id = $this->jobreports_model->add($jobreport_data);
@@ -258,22 +271,22 @@ class Jobreports extends AdminController
             $next_schedule_number = get_option('next_jobreport_number');
             $format = get_option('jobreport_number_format');
             $_prefix = get_option('jobreport_prefix');
-            
+
             $number_settings = $this->get_number_settings($id);
 
             $prefix = isset($number_settings->prefix) ? $number_settings->prefix : $_prefix;
-            
+
             $number  = isset($jobreport_data['number']) ? $jobreport_data['number'] : $next_jobreport_number;
 
             $date = date('Y-m-d');
-            
+
             $jobreport_data['formatted_number'] = jobreport_number_format($number, $format, $prefix, $date);
 
             $success = $this->jobreports_model->update($jobreport_data, $id);
             if ($success) {
                 set_alert('success', _l('updated_successfully', _l('jobreport')));
             }
-            
+
             if ($this->set_jobreport_pipeline_autoload($id)) {
                 redirect(admin_url('jobreports/'));
             } else {
@@ -290,7 +303,7 @@ class Jobreports extends AdminController
             $data['jobreport'] = $jobreport;
             $data['edit']     = true;
             $title            = _l('edit', _l('jobreport_lowercase'));
-       
+
 
         if ($this->input->get('customer_id')) {
             $data['customer_id'] = $this->input->get('customer_id');
@@ -313,7 +326,7 @@ class Jobreports extends AdminController
         return $this->db->get(db_prefix() . 'schedules')->row();
 
     }
-    
+
     public function update_number_settings($id)
     {
         $response = [
@@ -457,7 +470,7 @@ class Jobreports extends AdminController
         }
         redirect(admin_url('jobreports'));
     }
-    
+
     /* Used in kanban when dragging and mark as */
     public function update_jobreport_status()
     {
@@ -473,6 +486,32 @@ class Jobreports extends AdminController
         }
 
         redirect(admin_url('jobreports/jobreport/' . $id));
+    }
+
+    public function table_items($jobreport_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('jobreports', 'admin/tables/table_items'));
+    }
+
+    public function table_related($jobreport_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('jobreports', 'admin/tables/table_related'));
+    }
+
+    public function add_item()
+    {
+        if ($this->input->post() && $this->input->is_ajax_request()) {
+            $this->jobreports_model->jobreport_add_item($this->input->post());
+        }
+    }
+
+    public function remove_item()
+    {
+        if ($this->input->post() && $this->input->is_ajax_request()) {
+            $this->jobreports_model->jobreport_remove_item($this->input->post());
+        }
     }
 
 }

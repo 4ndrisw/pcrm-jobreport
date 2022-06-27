@@ -24,6 +24,12 @@ hooks()->add_action('staff_member_deleted', 'jobreports_staff_member_deleted');
 
 hooks()->add_action('after_jobreport_updated', 'jobreport_create_assigned_qrcode');
 
+hooks()->add_action('schedule_converted_to_jobreport', 'add_jobreport_items');
+hooks()->add_action('after_jobreport_copy', 'add_jobreport_items');
+
+
+
+
 hooks()->add_filter('migration_tables_to_replace_old_links', 'jobreports_migration_tables_to_replace_old_links');
 hooks()->add_filter('global_search_result_query', 'jobreports_global_search_result_query', 10, 3);
 hooks()->add_filter('global_search_result_output', 'jobreports_global_search_result_output', 10, 2);

@@ -421,6 +421,18 @@ function jobreport_pdf($jobreport, $tag = '')
     return app_pdf('jobreport',  module_libs_path(JOBREPORTS_MODULE_NAME) . 'pdf/Jobreport_pdf', $jobreport, $tag);
 }
 
+/**
+ * Prepare general jobreport pdf
+ * @since  Version 1.0.2
+ * @param  object $jobreport jobreport as object with all necessary fields
+ * @param  string $tag tag for bulk pdf exporter
+ * @return mixed object
+ */
+function jobreport_tags_pdf($jobreport, $tag = '')
+{
+    return app_pdf('jobreport',  module_libs_path(JOBREPORTS_MODULE_NAME) . 'pdf/Jobreport_tags_pdf', $jobreport, $tag);
+}
+
 
 
 /**
@@ -757,4 +769,22 @@ $hari = array ( 1 =>    'Senin',
             );
     $date = DateTime::createFromFormat("Y-m-d", $pdate);
     return $hari[$date->format("N")];
+}
+
+
+function add_jobreport_items($params){
+
+    $CI = &get_instance();
+    $CI->load->model('jobreports_model');
+
+    $items = $CI->jobreports_model->get_converted_tasks($params['jobreport_id'], $params['project_id']);
+    
+    foreach($items as $item){
+        $item['jobreport_id']=$params['jobreport_id'];
+        
+        $CI->db->insert(db_prefix().'jobreport_items', $item);
+    }
+
+    //$CI->db->insert_batch('mytable', $tasks); 
+
 }

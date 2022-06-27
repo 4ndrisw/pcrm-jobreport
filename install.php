@@ -162,6 +162,7 @@ add_option('jobreports_pipeline_limit', 1);
 add_option('default_jobreports_pipeline_sort', 1);
 add_option('jobreport_accept_identity_confirmation', 1);
 add_option('jobreport_qrcode_size', '160');
+add_option('jobreport_send_telegram_message', 0);
 
 
 /*
