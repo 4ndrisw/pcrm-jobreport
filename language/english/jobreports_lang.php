@@ -141,6 +141,7 @@ $lang['jobreports_tracking']				= 'Jobreports tracking';
 $lang['settings_sales_company_info_note']                          = 'These information will be displayed on invoices/jobreports/payments and other PDF documents where company info is required';
 $lang['bill_to']				= 'Bill to';
 $lang['attach_file']				= 'Attach file';
+$lang['settings_sales_jobreport_prefix']                             = 'Job report Number Prefix';
 
 
 
@@ -149,7 +150,6 @@ $lang['attach_file']				= 'Attach file';
 
 # Job reports
 $lang['client_zip_jobreports']     = 'ZIP Job reports';
-$lang['settings_sales_jobreport_prefix']                             = 'Job report Number Prefix';
 $lang['settings_sales_next_jobreport_number']                        = 'Next jobreport Number';
 $lang['settings_sales_next_jobreport_number_tooltip']                = 'Set this field to 1 if you want to start from beginning';
 $lang['settings_sales_jobreport_number_format']                      = 'Job report Number Format';
