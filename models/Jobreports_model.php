@@ -1352,6 +1352,7 @@ class Jobreports_model extends App_Model
         $this->db->group_by(db_prefix() . 'jobreport_items.project_id');
         $this->db->group_by(db_prefix() . 'jobreport_items.task_id');
         $this->db->group_by(db_prefix() . 'tasks.name');
+        $this->db->group_by(db_prefix() . 'tags.name');
 
         $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
         $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
