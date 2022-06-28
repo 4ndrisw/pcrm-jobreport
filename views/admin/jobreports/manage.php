@@ -21,7 +21,7 @@
                         //_l('jobreport_projects_name'),
                         _l('jobreport_status'),
                         _l('jobreport_start_date'),
-                        _l('jobreport_acceptance_name'),
+                        //_l('jobreport_acceptance_name'),
                         _l('jobreport_acceptance_date'),
                         //_l('jobreport_end_date'),
                         ),'jobreports'); ?>
