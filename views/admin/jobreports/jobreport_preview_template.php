@@ -271,11 +271,9 @@
                   </div>
                   <div class="row">
                      <div class="jobreport-items">
-                        <div class="table-responsive">
-                           <?php
-                              $this->load->view('admin/jobreports/jobreport_items_table');
-                           ?>
-                        </div>
+                        <?php
+                           $this->load->view('admin/jobreports/jobreport_items_table');
+                        ?>
                      </div>
                      <?php if(count($jobreport->attachments) > 0){ ?>
                         <div class="clearfix"></div>
