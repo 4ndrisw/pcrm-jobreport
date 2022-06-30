@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12 no-padding jobreport-table-related">
+			<div class="no-padding jobreport-table-related">
 				<?php $this->load->view('admin/jobreports/jobreport_table_related'); ?>
 			</div>
 		</div>
