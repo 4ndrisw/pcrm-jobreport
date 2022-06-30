@@ -270,23 +270,13 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-md-12 jobreport-items">
+                     <div class="jobreport-items">
                         <div class="table-responsive">
-                              <?php
-
-                                 $this->load->view('admin/jobreports/jobreport_items_table');
-
-                                 //$items = get_jobreport_items_table_data($jobreport, 'jobreport', 'html', true);
-                                 //echo $items->table();
-                              ?>
+                           <?php
+                              $this->load->view('admin/jobreports/jobreport_items_table');
+                           ?>
                         </div>
                      </div>
-
-                     <div class="col-md-12 jobreport-items">
-                     
-
-                     </div>
-
                      <?php if(count($jobreport->attachments) > 0){ ?>
                         <div class="clearfix"></div>
                         <hr />
