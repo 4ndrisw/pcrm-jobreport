@@ -49,7 +49,7 @@ $project = get_project($jobreport->project_id);
 
 $list = explode(' ',$project->name);
 $project_name = $list[0];
-$project_date = _d($project->start_date);
+$contract_date = _d($jobreport->contract->datestart);
 
 $date = $jobreport->date;
 $today = _l('jobreport_today');
@@ -66,7 +66,7 @@ EOD;
 // print a block of text using Write()
 $pdf->write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
 
-$jobreport_date_text = _l('jobreport_date_text');
+$jobreport_contract_date_text = _l('jobreport_contract_date_text');
 $tbl_po = <<<EOD
 <table style="margin-left:10">
     <tbody>
@@ -76,9 +76,9 @@ $tbl_po = <<<EOD
             <td>$project_name</td>
         </tr>
         <tr>
-            <td style="width:160">$jobreport_date_text</td>
+            <td style="width:160">$jobreport_contract_date_text</td>
             <td style="width:20">:</td>
-            <td>$project_date</td>
+            <td>$contract_date</td>
         </tr>
     </tbody>    
 </table>

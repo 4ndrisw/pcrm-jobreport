@@ -43,6 +43,8 @@ $lang['jobreport_notes']                          = 'Notes';
 $lang['jobreport_add_note']                       = 'Add Note';
 $lang['jobreport_to']                              = 'To';
 $lang['jobreport_data_date']              = 'Date';
+$lang['jobreport_contract_date']              = 'PO Date';
+
 $lang['jobreport_pdf_heading']            = 'JOB REPORT';
 $lang['jobreport_table_item_heading']     = 'Item';
 $lang['jobreport_table_quantity_heading'] = 'Qty';
@@ -117,7 +119,7 @@ $lang['jobreport_qrcode_size']                = 'Jobreport qrcode size';
 $lang['default_jobreport_assigned_string']                = 'Default jobreport assigned';
 $lang['jobreport_terms_and_conditions']		='Terms and conditions';
 $lang['jobreport_today']				= 'Today,';
-$lang['jobreport_date_text']				= 'Date';
+$lang['jobreport_contract_date_text']				= 'PO Date';
 $lang['jobreport_declare']                = 'hereby declare that :';
 $lang['jobreport_result']                = 'The work has been completed with the following results:';
 $lang['jobreport_closing']                ='This Minutes of Work Completion is made to be used properly, thank you for your attention and cooperation.';

@@ -49,8 +49,8 @@ $project = get_project($jobreport->project_id);
 
 $list = explode(' ',$project->name);
 $project_name = $list[0];
-$project_date = _d($project->start_date);
 
+$contract_date = _d($jobreport->contract->datestart);
 $date = $jobreport->date;
 $today = _l('jobreport_today');
 $jobreport_declare = _l('jobreport_declare');
@@ -74,6 +74,11 @@ $tbl_po = <<<EOD
             <td style="width:160">PO/SPK/WO/PH *)</td>
             <td style="width:20">:</td>
             <td>$project_name</td>
+        </tr>
+        <tr>
+            <td style="width:160">Tanggal PO</td>
+            <td style="width:20">:</td>
+            <td>$contract_date</td>
         </tr>
     </tbody>    
 </table>

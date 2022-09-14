@@ -103,15 +103,13 @@
          <div class="row">
             <div class="col-md-6">
                <div class="container-fluid">
-
                </div>
             </div>
             <div class="col-md-6 text-right">
                <p class="no-mbot jobreport-html-date">
                   <span class="bold">
-                  <?php echo _l('jobreport_data_date'); ?>:
-                  </span>
-                  <?php echo _d($jobreport->date); ?>
+                  <?php echo _l('jobreport_contract_date'); ?>: </span>
+                  <?php echo _d($contract->datestart); ?>
                </p>
                <?php if(!empty($jobreport->reference_no)){ ?>
                <p class="no-mbot jobreport-html-reference-no">

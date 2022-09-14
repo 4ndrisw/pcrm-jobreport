@@ -1437,6 +1437,23 @@ class Jobreports_model extends App_Model
 
         return false;
     }
+    public function get_contract_by_project($project=null){
+        
+        if(is_null($project->name)){
+            return '';
+        }else{
+        
+        $list = explode(' ',$project->name);
+        $project_name = $list[0];
 
+        $this->db->select([db_prefix() . 'contracts.*']);
+        $this->db->where(db_prefix() . 'contracts.subject =' . $project_name);
+        $this->db->where(db_prefix() . 'contracts.client =' . $project->clientid);
+        
+        //return $this->db->get_compiled_select(db_prefix() . 'contracts');
+        return $this->db->get(db_prefix() . 'contracts')->result();
+
+        }
+    }
 
 }

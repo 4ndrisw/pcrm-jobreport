@@ -75,7 +75,11 @@ class Myjobreport extends ClientsController
 
         $data['jobreport_items'] = $this->jobreports_model->get_jobreport_items($jobreport->id, $jobreport->project_id);
         //$data['jobreport_taggable_items'] = $this->jobreports_model->get_jobreport_taggable_items($jobreport->id, $jobreport->project_id);
+        $project = get_project($jobreport->project_id);
 
+        $contract = $this->jobreports_model->get_contract_by_project($project);
+
+        $data['contract']                      = $contract[0];
         $data['jobreport_number']              = $jobreport_number;
         $data['hash']                          = $hash;
         $data['can_be_accepted']               = false;
@@ -145,7 +149,11 @@ class Myjobreport extends ClientsController
         if (!$id) {
             redirect(admin_url('jobreports'));
         }
+
         $jobreport        = $this->jobreports_model->get($id);
+        $project = get_project($jobreport->project_id);
+        $contract = $this->jobreports_model->get_contract_by_project($project);
+        $jobreport->contract = $contract[0];
         $jobreport_number = format_jobreport_number($jobreport->id);
         $jobreport->items = $this->jobreports_model->get_jobreport_items($jobreport->id, $jobreport->project_id);
 
@@ -199,7 +207,11 @@ class Myjobreport extends ClientsController
         if (!$id) {
             redirect(admin_url('jobreports'));
         }
+
         $jobreport        = $this->jobreports_model->get($id);
+        $project = get_project($jobreport->project_id);
+        $contract = $this->jobreports_model->get_contract_by_project($project);
+        $jobreport->contract = $contract[0];
         $jobreport_number = format_jobreport_number($jobreport->id);
         $jobreport->items = $this->jobreports_model->get_jobreport_taggable_items($jobreport->id, $jobreport->project_id);
 
