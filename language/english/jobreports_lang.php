@@ -142,7 +142,7 @@ $lang['settings_sales_company_info_note']                          = 'These info
 $lang['bill_to']				= 'Bill to';
 $lang['attach_file']				= 'Attach file';
 $lang['settings_sales_jobreport_prefix']                             = 'Job report Number Prefix';
-
+$lang['no_jobreport_this_week']				= 'No jobreport this week';
 
 
 

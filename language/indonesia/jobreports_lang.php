@@ -139,6 +139,7 @@ $lang['jobreports_tracking']				= 'Jobreports tracking';
 $lang['settings_sales_jobreport_prefix']                             = 'Nomor Awalan BAPP';
 $lang['bill_to']				= 'Tagihkan kepada';
 $lang['attach_file']				= 'Upload file';
+$lang['no_jobreport_this_week']				= 'Tidak ada BAPP minggu ini';
 
 
 

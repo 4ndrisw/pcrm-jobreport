@@ -75,11 +75,6 @@ $tbl_po = <<<EOD
             <td style="width:20">:</td>
             <td>$project_name</td>
         </tr>
-        <tr>
-            <td style="width:160">$jobreport_date_text</td>
-            <td style="width:20">:</td>
-            <td>$project_date</td>
-        </tr>
     </tbody>    
 </table>
 EOD;
