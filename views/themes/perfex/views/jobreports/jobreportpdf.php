@@ -109,8 +109,7 @@ $items .= '<table style="padding:5,10,5,10" border="1" class="table table-border
 $items .=    '<thead>';
 $items .=        '<tr>';
 $items .=            '<th width="50" align="center">No#</th>';
-$items .=            '<th width="450" align="center">Items</th>';
-$items .=            '<th width="200" align="center">Tags</th>';
+$items .=            '<th width="650" align="center">Items</th>';
 $items .=            '<th width="100" align="center">Item/Lot</th>';
 $items .=        '</tr>';
 $items .=    '</thead>';
@@ -120,8 +119,7 @@ $items .=    '<tbody>';
             
 $items .=            '<tr>';
 $items .=                '<td width="50" align="right">' .$i.' </td>';
-$items .=                '<td width="450">' .$item['task_name']. '</td>';
-$items .=                '<td width="200">' .$item['tags_name']. '</td>';
+$items .=                '<td width="650">' .$item['task_name']. '</td>';
 $items .=                '<td width="100" align="center">' .$item['count']. '</td>';
 $items .=            '</tr>';
             
