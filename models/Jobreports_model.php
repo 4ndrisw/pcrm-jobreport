@@ -1447,7 +1447,7 @@ class Jobreports_model extends App_Model
         $project_name = $list[0];
 
         $this->db->select([db_prefix() . 'contracts.*']);
-        $this->db->where(db_prefix() . 'contracts.subject =' . $project_name);
+        $this->db->where(db_prefix() . 'contracts.subject ="' . $project_name .'"');
         $this->db->where(db_prefix() . 'contracts.client =' . $project->clientid);
         
         //return $this->db->get_compiled_select(db_prefix() . 'contracts');
