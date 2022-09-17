@@ -41,6 +41,13 @@
       echo render_select('settings[default_jobreport_assigned]',$staff,array('staffid',array('firstname','lastname')),'default_jobreport_assigned_string',$selected);
       ?>
       <hr />
+      <i class="fa fa-question-circle pull-left" data-toggle="tooltip" data-title="<?php echo _l('jobreport_start_date_label'); ?>"></i>
+        <?php $start_date = get_option('jobreport_start_date'); ?>
+        <?php $value = $start_date ? $start_date : date('Y-m-d'); ?>
+        <?php echo render_date_input('settings[jobreport_start_date]','jobreport_start_date',$value); ?>
+
+      <hr />
+
       <?php render_yes_no_option('exclude_jobreport_from_client_area_with_draft_status','exclude_jobreport_from_client_area_with_draft_status'); ?>
       <hr />   
       <?php render_yes_no_option('jobreport_accept_identity_confirmation','jobreport_accept_identity_confirmation'); ?>
