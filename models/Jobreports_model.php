@@ -1301,9 +1301,20 @@ class Jobreports_model extends App_Model
 
         //return $this->db->get_compiled_select(db_prefix() . 'jobreports');
         return $this->db->get(db_prefix() . 'jobreports')->result_array();
-
     }
 
+    public function get_finished_project_not_reported(){
+        $this->db->select([db_prefix() . 'clients.userid', db_prefix() . 'clients.company', db_prefix() . 'projects.id AS project_id', db_prefix() . 'projects.name', db_prefix() . 'projects.start_date']);
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'jobreports.project_id', 'right');
+        $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'projects.clientid', 'left');
+        $this->db->group_by([db_prefix() . 'jobreports.id', db_prefix() . 'clients.userid',db_prefix() . 'projects.id']);
+
+        $this->db->where(db_prefix() . 'projects.status = ' . '4');
+        $this->db->where(db_prefix() . 'projects.start_date >= ' . '"2022-05-12"');
+        $this->db->where('jobreports.id', NULL);
+
+        return $this->db->get(db_prefix() . 'jobreports')->result_array();
+    }
 
     public function get_related_tasks($jobreport_id, $project_id){
 

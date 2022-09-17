@@ -44,6 +44,8 @@ $lang['jobreport_add_note']                       = 'Add Note';
 $lang['jobreport_to']                              = 'To';
 $lang['jobreport_data_date']              = 'Date';
 $lang['jobreport_contract_date']              = 'PO Date';
+$lang['finished_project_not_reported']              = 'Finished project not reported';
+$lang['jobreport_project_date']              = 'Date';
 
 $lang['jobreport_pdf_heading']            = 'JOB REPORT';
 $lang['jobreport_table_item_heading']     = 'Item';

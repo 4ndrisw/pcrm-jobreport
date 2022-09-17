@@ -141,6 +141,8 @@ $lang['settings_sales_jobreport_prefix']                             = 'Nomor Aw
 $lang['bill_to']				= 'Tagihkan kepada';
 $lang['attach_file']				= 'Upload file';
 $lang['no_jobreport_this_week']				= 'Tidak ada BAPP minggu ini';
+$lang['finished_project_not_reported']              = 'Project selesai belum dilaporkan';
+$lang['jobreport_project_date']              = 'Tanggal';
 
 
 
