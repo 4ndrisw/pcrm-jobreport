@@ -134,7 +134,8 @@ function jobreport_mark_as(status_id, jobreport_id) {
     var data = {};
     data.status = status_id;
     data.jobreportid = jobreport_id;
-    $.post(admin_url + 'jobreports/update_jobreport_status', data).done(function (response) {
+    //$.post(admin_url + 'jobreports/update_jobreport_status', data).done(function (response) {
+    $.post(admin_url + 'jobreports/mark_action_status', status_id, jobreport_id).done(function (response) {
         //table_jobreports.DataTable().ajax.reload(null, false);
         reload_jobreports_tables();
     });
