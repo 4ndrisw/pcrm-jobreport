@@ -773,6 +773,9 @@ $hari = array ( 1 =>    'Senin',
 
 
 function add_jobreport_items($params){
+    if(get_option('allow_add_jobreport_item_from_uncomplete_tasks') !== '1'){
+        return;
+    }
 
     $CI = &get_instance();
     $CI->load->model('jobreports_model');
