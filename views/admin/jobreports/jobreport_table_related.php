@@ -7,7 +7,11 @@
          <div class="table-responsive">
             <?php render_datatable(array(
                 _l('jobreport_task'),
-                _l('jobreport_tag'),
+                _l('status'),
+                _l('inspection'),
+                _l('licence'),
+                _l('file'),
+                //_l('jobreport_tag'),
                 _l('jobreport_flag'),
                 ),'jobreport-related'); ?>
          </div>
