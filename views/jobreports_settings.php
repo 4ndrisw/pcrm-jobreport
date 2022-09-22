@@ -19,6 +19,8 @@
       <hr />
       <?php render_yes_no_option('jobreport_number_decrement_on_delete','decrement_jobreport_number_on_delete','decrement_jobreport_number_on_delete_tooltip'); ?>
       <hr />
+      <?php echo render_yes_no_option('allow_add_jobreport_item_from_uncomplete_tasks','allow_add_jobreport_item_from_uncomplete_tasks'); ?>
+      <hr />
       <?php echo render_yes_no_option('allow_staff_view_jobreports_assigned','allow_staff_view_jobreports_assigned'); ?>
       <hr />
       <?php render_yes_no_option('view_jobreport_only_logged_in','require_client_logged_in_to_view_jobreport'); ?>
