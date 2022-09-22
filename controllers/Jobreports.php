@@ -41,7 +41,7 @@ class Jobreports extends AdminController
 
         $data['jobreport'] = $jobreport;
         $data['edit']     = false;
-        $title            = _l('preview_jobreport');
+        $title            = _l('preview_jobreport') .'-'. $jobreport->id;
 
 
         if ($this->input->post()) {
