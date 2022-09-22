@@ -177,15 +177,19 @@ class Jobreports_model extends App_Model
         $new_jobreport_data['newitems']   = [];
         $custom_fields_items             = get_custom_fields('items');
         $key                             = 1;
-        foreach ($_jobreport->items as $item) {
-            $new_jobreport_data['newitems'][$key]['description']      = $item['description'];
-            $new_jobreport_data['newitems'][$key]['long_description'] = clear_textarea_breaks($item['long_description']);
-            $new_jobreport_data['newitems'][$key]['qty']              = $item['qty'];
-            $new_jobreport_data['newitems'][$key]['unit']             = $item['unit'];
+/*
+        if(get_option('allow_add_jobreport_item_from_uncomplete_tasks') == '1'){
+            foreach ($_jobreport->items as $item) {
+                $new_jobreport_data['newitems'][$key]['description']      = $item['description'];
+                $new_jobreport_data['newitems'][$key]['long_description'] = clear_textarea_breaks($item['long_description']);
+                $new_jobreport_data['newitems'][$key]['qty']              = $item['qty'];
+                $new_jobreport_data['newitems'][$key]['unit']             = $item['unit'];
 
-            $new_jobreport_data['newitems'][$key]['order'] = $item['item_order'];
-            $key++;
+                $new_jobreport_data['newitems'][$key]['order'] = $item['item_order'];
+                $key++;
+            }
         }
+*/
         $id = $this->add($new_jobreport_data);
         if ($id) {
 
@@ -342,12 +346,21 @@ class Jobreports_model extends App_Model
             $this->db->update(db_prefix() . 'options');
 
             handle_tags_save($tags, $insert_id, 'jobreport');
+            $jobreport = $this->get($insert_id);
+            $data['jobreport_id'] = $jobreport->id;
+            $data['project_id'] = $jobreport->project_id;
 
-            foreach ($items as $key => $item) {
-                if ($new_item_added = add_new_jobreport_item_post($item, $insert_id, 'jobreport')) {
-                    $affectedRows++;
+            add_jobreport_items($data);
+            /*
+            if(get_option('allow_add_jobreport_item_from_uncomplete_tasks') == '1'){
+                log_activity(get_option('allow_add_jobreport_item_from_uncomplete_tasks'));
+                foreach ($items as $key => $item) {
+                    if ($new_item_added = add_new_jobreport_item_post($item, $insert_id, 'jobreport')) {
+                        $affectedRows++;
+                    }
                 }
             }
+            */
 
             hooks()->do_action('after_jobreport_added', $insert_id);
 
