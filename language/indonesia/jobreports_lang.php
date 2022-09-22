@@ -30,6 +30,7 @@ $lang['jobreport_status_declined']        = 'Ditolak';
 $lang['jobreport_status_accepted']        = 'Diterima';
 $lang['jobreport_status_expired']         = 'Expired';
 $lang['jobreport_note']                   = 'Catatan:';   
+$lang['allow_add_jobreport_item_from_uncomplete_tasks']              = 'Dibolehkan menambah BAPP item dari tugas yang belum lengkap';
 
 $lang['jobreports']                                = 'BAPP';
 $lang['jobreport']                                 = 'BAPP';
