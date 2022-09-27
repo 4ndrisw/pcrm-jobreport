@@ -50,6 +50,10 @@ function jobreports_add_dashboard_widget($widgets)
         'path'      => 'jobreports/widgets/finished_project_not_reported',
         'container' => 'left-8',
     ];
+    $widgets[] = [
+        'path'      => 'jobreports/widgets/ready_jobreported_but_uncompleted_tasks',
+        'container' => 'left-8',
+    ];
 
     return $widgets;
 }

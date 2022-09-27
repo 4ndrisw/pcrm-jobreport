@@ -1481,4 +1481,39 @@ class Jobreports_model extends App_Model
         }
     }
 
+  public function get_ready_jobreported_but_uncompleted_tasks(){
+        $this->db->select([
+            db_prefix() . 'tasks.name',
+            db_prefix() . 'tasks.status',
+            db_prefix() . 'inspections.date',
+            db_prefix() . 'licences.released_date',
+            db_prefix() . 'files.file_name',
+            db_prefix() . 'projects.name AS project_name',
+            db_prefix() . 'jobreport_items.flag',
+        ]);
+
+        $this->db->join(db_prefix() . 'jobreport_items', db_prefix() . 'jobreport_items.task_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'tasks.rel_id', 'left');
+        
+        $this->db->join(db_prefix() . 'inspection_items', db_prefix() . 'inspection_items.task_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'inspections', db_prefix() . 'inspection_items.inspection_id = ' . db_prefix() . 'inspections.id', 'left');
+        $this->db->join(db_prefix() . 'licence_items', db_prefix() . 'licence_items.task_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'licences', db_prefix() . 'licence_items.licence_id = ' . db_prefix() . 'licences.id', 'left');
+        $this->db->join(db_prefix() . 'files', db_prefix() . 'files.rel_id = ' . db_prefix() . 'tasks.id', 'left');
+
+
+        //$this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'tasks.status > ' . 1);
+        $this->db->where(db_prefix() . 'projects.start_date > "' . get_option('jobreport_start_date') .'"');
+        $this->db->where(db_prefix() . 'jobreport_items.id IS NULL');
+        $this->db->group_start();
+        $this->db->or_where(db_prefix() . 'inspections.date',null);
+        $this->db->or_where(db_prefix() . 'licences.released_date',null);
+        $this->db->group_end();
+
+        //return $this->db->get_compiled_select(db_prefix() . 'tasks');
+        return $this->db->get(db_prefix() . 'tasks')->result_array();
+    }
+
 }

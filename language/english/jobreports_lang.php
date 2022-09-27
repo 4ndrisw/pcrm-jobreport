@@ -132,6 +132,12 @@ $lang['jobreport_send_telegram_message']				= 'Send telegram message';
 $lang['view_compact_pdf']				= 'Compact PDF';
 $lang['view_full_pdf']				= 'Full PDF';
 
+$lang['jobreport_list_task']				= 'Task';
+$lang['jobreport_inspection_date']				= 'Inspection';
+$lang['jobreport_licence_date']				= 'Licence';
+$lang['jobreport_file']				= 'File';
+$lang['ready_jobreported_but_uncompleted_tasks']				= 'Ready jobreported uncompleted tasks';
+
 $lang['jobreport_task']				= 'Equipment';
 $lang['jobreport_tag']				= 'Tag';
 $lang['jobreport_flag']				= 'Operation';

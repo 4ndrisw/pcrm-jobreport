@@ -128,6 +128,12 @@ $lang['view_compact_pdf']				= 'Compact PDF';
 $lang['view_full_pdf']				= 'Full PDF';
 
 $lang['jobreport_task']				= 'Equipment';
+$lang['jobreport_list_task']				= 'Task';
+$lang['jobreport_inspection_date']				= 'Inspeksi';
+$lang['jobreport_licence_date']				= 'Suket';
+$lang['jobreport_file']				= 'File';
+$lang['ready_jobreported_but_uncompleted_tasks']	= 'Akan dibuat BAPP tasks belum lengkap';
+
 $lang['jobreport_tag']				= 'Tag';
 $lang['jobreport_flag']				= 'Operasi';
 $lang['propose_this_item']				= 'Ajukan alat ini';
