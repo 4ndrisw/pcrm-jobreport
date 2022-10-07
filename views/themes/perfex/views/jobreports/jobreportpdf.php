@@ -50,7 +50,16 @@ $project = get_project($jobreport->project_id);
 $list = explode(' ',$project->name);
 $project_name = $list[0];
 
-$contract_date = _d($jobreport->contract->datestart);
+$contract_date ='';
+if(isset($jobreport->contract->datestart)){
+    $contract_date_raw = isset($jobreport->contract->datestart) ? _d($jobreport->contract->datestart) : NULL;
+    $tahun = getYear($contract_date_raw);
+    $bulan = getMonth($contract_date_raw);
+    $tanggal = getDay($contract_date_raw);
+    $contract_date = $tanggal.' '.$bulan.' '.$tahun;
+}
+
+
 $date = $jobreport->date;
 $today = _l('jobreport_today');
 $jobreport_declare = _l('jobreport_declare');

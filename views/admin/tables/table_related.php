@@ -53,7 +53,7 @@ foreach ($rResult as $aRow) {
     for ($i = 0; $i < count($aColumns); $i++) {
         $_data = $aRow[$aColumns[$i]];
         if ($aColumns[$i] != db_prefix() . 'jobreport_items.flag') {
-            if($aRow[$aColumns[$i]] = '' || is_null($aRow[$aColumns[$i]])){
+            if($aRow[$aColumns[$i]] == '' || is_null($aRow[$aColumns[$i]])){
                 $row_data = FALSE;
             }
         }
