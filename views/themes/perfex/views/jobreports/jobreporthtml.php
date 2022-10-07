@@ -109,7 +109,11 @@
                <p class="no-mbot jobreport-html-date">
                   <span class="bold">
                   <?php echo _l('jobreport_contract_date'); ?>: </span>
-                  <?php echo _d($contract->datestart); ?>
+                  <?php 
+                     if(isset($contract->datestart)){
+                        echo _d($contract->datestart); 
+                     }
+                  ?>
                </p>
                <?php if(!empty($jobreport->reference_no)){ ?>
                <p class="no-mbot jobreport-html-reference-no">

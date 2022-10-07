@@ -79,7 +79,9 @@ class Myjobreport extends ClientsController
 
         $contract = $this->jobreports_model->get_contract_by_project($project);
 
-        $data['contract']                      = $contract[0];
+        if(count($contract)>0){
+            $jobreport->contract = $contract[0];
+        }
         $data['jobreport_number']              = $jobreport_number;
         $data['hash']                          = $hash;
         $data['can_be_accepted']               = false;
