@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $aColumns = [
     'formatted_number',
     'company',
+    db_prefix() . 'projects.name',
     'date',
 ];
 
@@ -14,10 +15,16 @@ $sTable       = db_prefix() . 'jobreports';
 
 $join = [
     'LEFT JOIN ' . db_prefix() . 'clients ON ' . db_prefix() . 'clients.userid = ' . db_prefix() . 'jobreports.clientid',
-    //'LEFT JOIN ' . db_prefix() . 'projects ON ' . db_prefix() . 'projects.id = ' . db_prefix() . 'jobreports.project_id',
+    'LEFT JOIN ' . db_prefix() . 'projects ON ' . db_prefix() . 'projects.id = ' . db_prefix() . 'jobreports.project_id',
 ];
 
-$result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, [], ['id']);
+
+$additionalColumns = hooks()->apply_filters('jobreports_table_additional_columns_sql', [
+    db_prefix() . 'projects.id',
+    'acceptance_lastname',
+]);
+$where = [];
+$result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, $where, $additionalColumns);
 
 $output  = $result['output'];
 $rResult = $result['rResult'];

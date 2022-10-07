@@ -18,6 +18,7 @@
         <?php render_datatable(array(
             _l('jobreport_number'),
             _l('jobreport_company'),
+            _l('jobreport_list_project'),
             _l('jobreport_start_date'),
             ),'jobreports'); ?>
      </div>
