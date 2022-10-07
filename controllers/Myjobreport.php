@@ -153,7 +153,8 @@ class Myjobreport extends ClientsController
         $jobreport        = $this->jobreports_model->get($id);
         $project = get_project($jobreport->project_id);
         $contract = $this->jobreports_model->get_contract_by_project($project);
-        if(isset($contract)){
+        
+        if(count($contract)>0){
             $jobreport->contract = $contract[0];
         }
 
