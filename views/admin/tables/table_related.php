@@ -47,8 +47,6 @@ $result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, $where, $ad
 
 $output  = $result['output'];
 $rResult = $result['rResult'];
-
-$allow_uncomplete = get_option('allow_add_jobreport_item_from_uncomplete_tasks');
 foreach ($rResult as $aRow) {
     $row = [];
     $row_data = TRUE;
@@ -68,9 +66,7 @@ foreach ($rResult as $aRow) {
         } elseif ($aColumns[$i] == db_prefix() . 'jobreport_items.flag') {
             if(!$row_data){
                 $value = 'Data tidak lengkap';
-            }
-
-            if($allow_uncomplete){
+            }else{
                 $value = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="jobreport_add_item(' . $jobreport_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
             }
             $_data = $value;
