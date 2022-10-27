@@ -66,6 +66,7 @@ foreach ($rResult as $aRow) {
         elseif ($aColumns[$i] == db_prefix() . 'tasks.status') {
             $_data =  format_task_status($_data);
         } elseif ($aColumns[$i] == db_prefix() . 'jobreport_items.flag') {
+            $value = 'Data tidak lengkap';
             if(!$row_data){
                 $value = 'Data tidak lengkap';
             }
