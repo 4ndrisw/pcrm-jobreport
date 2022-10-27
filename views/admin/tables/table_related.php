@@ -66,12 +66,12 @@ foreach ($rResult as $aRow) {
         elseif ($aColumns[$i] == db_prefix() . 'tasks.status') {
             $_data =  format_task_status($_data);
         } elseif ($aColumns[$i] == db_prefix() . 'jobreport_items.flag') {
-            $value = 'Data tidak lengkap';
+            //$value = 'Data tidak lengkap';
             if(!$row_data){
                 $value = 'Data tidak lengkap';
             }
-
-            if($allow_uncomplete){
+            else{
+            //if($allow_uncomplete){
                 $value = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="jobreport_add_item(' . $jobreport_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
             }
             $_data = $value;
