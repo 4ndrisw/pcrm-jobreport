@@ -217,7 +217,11 @@ class Myjobreport extends ClientsController
         $jobreport        = $this->jobreports_model->get($id);
         $project = get_project($jobreport->project_id);
         $contract = $this->jobreports_model->get_contract_by_project($project);
-        $jobreport->contract = $contract[0];
+
+        if(count($contract)>0){
+            $jobreport->contract = $contract[0];
+        }
+
         $jobreport_number = format_jobreport_number($jobreport->id);
         $jobreport->items = $this->jobreports_model->get_jobreport_taggable_items($jobreport->id, $jobreport->project_id);
 
