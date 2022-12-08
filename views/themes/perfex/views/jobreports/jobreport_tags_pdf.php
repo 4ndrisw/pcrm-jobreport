@@ -49,7 +49,8 @@ $project = get_project($jobreport->project_id);
 
 $list = explode(' ',$project->name);
 $project_name = $list[0];
-$contract_date = _d($jobreport->contract->datestart);
+//$contract_date = _d($jobreport->contract->datestart);
+$contract_date = '-';
 
 $date = $jobreport->date;
 $today = _l('jobreport_today');
