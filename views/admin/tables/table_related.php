@@ -71,6 +71,7 @@ foreach ($rResult as $aRow) {
                 $value = 'Data tidak lengkap';
             }
             else{
+                $value = 'UNDEFINED';
             }
             if($allow_uncomplete){
                 $value = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="jobreport_add_item(' . $jobreport_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
