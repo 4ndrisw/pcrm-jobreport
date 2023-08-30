@@ -20,7 +20,7 @@ $join = [
 
 
 $additionalColumns = hooks()->apply_filters('jobreports_table_additional_columns_sql', [
-    db_prefix() . 'projects.id',
+    db_prefix() . 'jobreports.id',
     'acceptance_lastname',
 ]);
 $where = [];
@@ -35,6 +35,10 @@ foreach ($rResult as $aRow) {
         $_data = $aRow[$aColumns[$i]];
         if ($aColumns[$i] == 'formatted_number') {
             $_data = '<a href="' . admin_url('jobreports/jobreport/' . $aRow['id']) . '">' . $_data . '</a>';
+            /*
+            $_data = '<a href="' . admin_url('jobreports/jobreport/' . $aRow['id']. '#' . $aRow['id']) . '" onclick="init_jobreport(' . $aRow['id'] . '); return false;">' . format_jobreport_number($aRow['id']) . '</a>';
+            */
+
             $_data .= '<div class="row-options">';
             $_data .= '<a href="' . admin_url('jobreports/update/' . $aRow['id']) . '">' . _l('edit') . '</a>';
 
